@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/OnDeviceActivityRecogApp.iml" filepath="$PROJECT_DIR$/.idea/modules/OnDeviceActivityRecogApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/OnDeviceActivityRecogApp.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/OnDeviceActivityRecogApp.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/transfer_api/OnDeviceActivityRecogApp.transfer_api.iml" filepath="$PROJECT_DIR$/.idea/modules/transfer_api/OnDeviceActivityRecogApp.transfer_api.iml" />
+    </modules>
+  </component>
+</project>
