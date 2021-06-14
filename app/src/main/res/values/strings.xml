@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Activity Recognition</string>
+  <string name="logo_title">On-Device Activity Recognizer</string>
+  <string name="title_screen_option_text">You can either train a new model or use an already trained model. If you use this app for the first time there is no pre trained model and the personalized model behaves the same as the generic model.</string>
+
+
+  <string name="BtnPreTrainedModel">Use a pre trained model</string>
+  <string name="BtnTrainNewModel">Train a new model</string>
+  <string name="BtnLastTrainedModel">Use last trained model</string>
+  <string name="BtnStartCollectingData">Collect Data</string>
+  <string name="BtnStopCollectingData">Stop Collecting Data</string>
+  <string name="BtnStartTraining">Start Training</string>
+  <string name="BtnStopTraining">Stop Training</string>
+  <string name="SaveAsPreTrainedModel">Save As Pre Trained Model</string>
+  <string name="UseNewTrainedModel">Use New Trained Model</string>
+  <string name="BtnCreateConfusionMatrix">Create Confusion Matrix</string>
+
+
+  <string name="EnterActivityText">1) Select the activity you want to record:</string>
+  <string name="StartCollectingData">2) Press the "Collect Data" Button. It starts after 3 seconds to give you some time to put the mobile phone at the correct spot.</string>
+
+  <string name="InstanceText">Every activity needs at least 5 instances. The array below depicts the number of instances for each activity and follows the same order as the dropdown menu.</string>
+  <string name="TrainingText">3) Press the button below to start the training.</string>
+
+  <string name="Loss">Loss: %.4f</string>
+
+  <string name="MissingFeatureMatrix">Feature Matrix could not be loaded</string>
+
+  <string name="zero_value">0.0</string>
+  <string name="OR">OR</string>
+
+
+  <string name="instanceConfusionMatrix">The array below depicts how many instances you collected for each activity.</string>
+  <string name="CalculateConfusionMatrix">3) Press the button below to calculate the confusion matrix</string>
+  <string name="BtnCalcConfusionMatrix">Calculate Confusion Matrix</string>
+
+
+  <!-- IMPORTANT: THIS LIST HAS TO FOLLOW THE LIST IN TransferLearningModelWrapper.java, OTHERWISE THE PROGRAM WONT WORK PROPERLY-->
+  <string-array name="class_array">
+    <item>Walking</item>
+    <item>Upstairs</item>
+    <item>Downstairs</item>
+    <item>Sitting</item>
+    <item>Standing</item>
+    <item>Laying</item>
+    <item>Running</item>
+  </string-array>
+
+</resources>

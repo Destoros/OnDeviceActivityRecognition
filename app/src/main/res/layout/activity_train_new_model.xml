@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="12dp"
+    tools:context=".TrainNewModel">
+
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/EnterActivityText"
+        android:textSize="18sp" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        app:cardBackgroundColor="@color/buttonBackground"
+        app:cardCornerRadius="4dp">
+
+        <Spinner
+            android:id="@+id/change_class_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:clickable="true"
+            android:popupBackground="@color/buttonBackground" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/StartCollectingData"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/collectingDataButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:backgroundTint="@color/buttonBackground"
+        android:minHeight="64dip"
+        android:onClick="startCollectingData"
+        android:text="@string/BtnStartCollectingData" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:text="@string/InstanceText"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/instancesTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="12dp"
+        android:layout_weight="0"
+        android:gravity="center"
+        android:text="[ ]"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6sp"
+        android:layout_weight="0"
+        android:text="@string/TrainingText"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/trainingButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:backgroundTint="@color/buttonBackground"
+        android:minHeight="64dip"
+        android:onClick="startTraining"
+        android:text="@string/BtnStartTraining" />
+
+    <TextView
+        android:id="@+id/lossTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="6sp"
+        android:layout_weight="0"
+        android:gravity="center"
+        android:text="@string/Loss"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0"
+        android:gravity="center|bottom"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/saveAsPreTrainedModelButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/buttonBackground"
+            android:minHeight="64dip"
+            android:onClick="saveAsPreTrainedModel"
+            android:text="@string/SaveAsPreTrainedModel"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/OR"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/useNewTrainedModelButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/buttonBackground"
+            android:minHeight="64dip"
+            android:onClick="useNewTrainedModel"
+            android:text="@string/UseNewTrainedModel"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </LinearLayout>
+
+</LinearLayout>
