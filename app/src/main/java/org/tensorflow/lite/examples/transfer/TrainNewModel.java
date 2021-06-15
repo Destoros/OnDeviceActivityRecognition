@@ -21,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -83,6 +84,8 @@ public class TrainNewModel extends AppCompatActivity implements  SensorEventList
     Handler handler = new Handler();
 
     kNN myKNN;
+
+
 
 
     @Override
@@ -165,6 +168,9 @@ public class TrainNewModel extends AppCompatActivity implements  SensorEventList
     public void onAccuracyChanged(Sensor sensor, int i) {
 
     }
+
+
+
 
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         // retrieve the selected item from the spinner

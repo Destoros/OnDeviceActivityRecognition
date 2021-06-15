@@ -3,6 +3,7 @@ package org.tensorflow.lite.examples.transfer;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
@@ -11,15 +12,16 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.GridLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.tensorflow.lite.Interpreter;
 import org.tensorflow.lite.examples.transfer.api.TransferLearningModel.Prediction;
+import org.tensorflow.lite.examples.transfer.models.TensorFlowLiteClassifier;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -45,6 +47,7 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
     boolean useNewTrainedModel = false;
     boolean tlModelLoaded = false;
     boolean kNNModelLoaded = false;
+    boolean genericModelLoaded = false;
 
     static List<Float> x_accel;
     static List<Float> y_accel;
@@ -59,7 +62,8 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
     AssetManager mAssetManager; //the asset manager allows me access to the asset folder (ProjectName/app/src/main/asset in project view and app/assets ind android view)
 
     TransferLearningModelWrapper tlModel; //transfer learning model class which uses the .tflite files
-    TransferLearningModelWrapper tlModelGeneric;
+    TransferLearningModelWrapper tlModelGeneric; //can be delete in the future
+    Interpreter genericModel;
 
     kNN kNNModel;
 
@@ -80,11 +84,13 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
 
 
 
-
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_use_pre_trained_data);
+
+
 
 
         TextView kNNLabel = new TextView(this);
@@ -96,7 +102,6 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
         gridLayout.setColumnCount(4);
         gridLayout.setPadding(paddingGridLayout,paddingGridLayout,paddingGridLayout,paddingGridLayout);
         setContentView(gridLayout);
-
 
 
         kNNLabel.setTextSize(textSize);
@@ -153,12 +158,10 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
         }
 
 
-
-
-        x_accel = new ArrayList<Float>();
-        y_accel = new ArrayList<Float>();
-        z_accel = new ArrayList<Float>();
-        input_signal = new ArrayList<Float>();
+        x_accel = new ArrayList<>();
+        y_accel = new ArrayList<>();
+        z_accel = new ArrayList<>();
+        input_signal = new ArrayList<>();
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -229,7 +232,30 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
 //                Toast.makeText(getApplicationContext(), modelFile.toString(), Toast.LENGTH_LONG).show(); //show path it searched the model in
         }
 
+//        // load generic model
+//        try {
+//            myGenericModel = TensorFlowLiteClassifier.create(getAssets(), "GenericModel","converted_model.tflite", "labels.txt");
+//            genericModelLoaded = true;
+//            Toast.makeText(getApplicationContext(), "Generic model loaded", Toast.LENGTH_SHORT).show();
+//        } catch( final Exception e) {
+//            Toast.makeText(getApplicationContext(), "Error while loading generic model", Toast.LENGTH_SHORT).show();
+//        }
+
+        // load generic model
+        try {
+            genericModel = new Interpreter(TensorFlowLiteClassifier.loadModelFile(getAssets(), "converted_model.tflite"));
+            Toast.makeText(getApplicationContext(), "Generic model loaded", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            Toast.makeText(getApplicationContext(), "IO exception", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Error while loading generic model", Toast.LENGTH_SHORT).show();
+        }
+
+
+
+
+
     }
+
 
 
     protected void onPause() {
@@ -254,10 +280,10 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        switch (event.sensor.getType()) {
-            case Sensor.TYPE_ACCELEROMETER:
-                x_accel.add(event.values[0]); y_accel.add(event.values[1]); z_accel.add(event.values[2]);
-                break;
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            x_accel.add(event.values[0]);
+            y_accel.add(event.values[1]);
+            z_accel.add(event.values[2]);
         }
 
         //Check if we have desired number of samples for sensors, if yes, the process input.
@@ -275,7 +301,7 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
 
     private void processInput()
     {
-        int i = 0;
+        int i;
         float max_val = 0;
         int index_max = 0;
 
@@ -317,24 +343,45 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
             // generic Model
             max_val = 0;
             index_max = 0;
-            Prediction[] predictionsGeneric = tlModelGeneric.predict(input);
+
+            float[][] output = new float[1][12]; //tflite library return a 1x12 float array
+            genericModel.run(input, output);
+
+            //still need to consider the classes
+            //STAND_TO_SIT
+            //SIT_TO_STAND
+            //SIT_TO_LIE
+            //LIE_TO_SIT
+            //STAND_TO_LIE
+            //LIE_TO_STAND
+
+            //put all those classes into the running class
+            for(i = N_ACTIVITIES; i < output.length; i++) {
+                output[0][N_ACTIVITIES-1] += output[0][i];
+            }
+
 
             for (i = 0; i < genericTextViews.size(); i++) {
-                prediction_values[i] =  predictionsGeneric[i].getConfidence() ;
-                if (prediction_values[i] > max_val) {
-                    max_val = prediction_values[i];
+                if (output[0][i] > max_val) {
+                    max_val = output[0][i];
                     index_max = i;
                 }
             }
 
             for (i = 0; i < genericTextViews.size(); i++) {
-                genericTextViews.get(i).setText(String.format(Locale.US, "%.2f", prediction_values[i]));
+                genericTextViews.get(i).setText(String.format(Locale.US, "%.2f", output[0][i]));
                 if (i == index_max) {
                     genericTextViews.get(i).setTextColor(ResourcesCompat.getColor(getResources(), R.color.colour_active, null)); //without theme);
                 } else {
                     genericTextViews.get(i).setTextColor(ResourcesCompat.getColor(getResources(), R.color.colour_not_active, null)); //without theme);
                 }
             }
+
+
+
+
+
+
 
             //=======================================================
             // personalized Model

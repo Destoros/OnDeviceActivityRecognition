@@ -1,4 +1,4 @@
-#Tue Jun 15 15:19:08 CEST 2021
+#Tue Jun 15 21:55:44 CEST 2021
 base.2=C\:\\Users\\Hannes\\Desktop\\OnDeviceActivityRecogApp\\app\\build\\intermediates\\dex\\debug\\mergeLibDexDebug\\classes_0.dex
 path.2=classes_0.dex
 base.1=C\:\\Users\\Hannes\\Desktop\\OnDeviceActivityRecogApp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\classes.dex

@@ -10,7 +10,8 @@
     <GridLayout
         android:id="@+id/MyGridLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></GridLayout>
+        android:layout_height="wrap_content"
+        android:minHeight="40dp" />
 
     <Button
         android:id="@+id/button6"
