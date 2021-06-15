@@ -19,10 +19,18 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.tensorflow.lite.examples.transfer.api.TransferLearningModel;
+import org.w3c.dom.Text;
+
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class CreateConfusionMatrix extends AppCompatActivity implements SensorEventListener,AdapterView.OnItemSelectedListener{
 
@@ -33,8 +41,10 @@ public class CreateConfusionMatrix extends AppCompatActivity implements SensorEv
     // 10 is the number of PREDICT_AFTER_N_NEW_SAMPLES)
     // PREDICT_AFTER_N_NEW_SAMPLES = 0 removes all 200 samples and waits until the list is fully filled again
 
-    public static final String tokenLabels = "LABELS";
-    public static final String tokenData = "DATA";
+    public static final String tokenKNN = "KNN";
+    public static final String tokenGeneric = "GENERIC";
+    public static final String tokenTL= "TRANSFER_LEARNING";
+
 
 
     public static final String[] ALL_ACTIVITIES_NAMES = TransferLearningModelWrapper.listClasses.toArray(new String[0]);
@@ -54,6 +64,10 @@ public class CreateConfusionMatrix extends AppCompatActivity implements SensorEv
     static ArrayList<ArrayList<Float>> collectedData;
     static ArrayList<String> collectedDataLabels;
 
+    int[][] confusionMatrixKNN;
+    int[][] confusionMatrixGeneric;
+    int[][] confusionMatrixTL;
+
     String selectedActivity;
 
     TextView instanceTextView;
@@ -67,11 +81,28 @@ public class CreateConfusionMatrix extends AppCompatActivity implements SensorEv
 
     Handler handler = new Handler();
 
+    TransferLearningModelWrapper tlModel; //transfer learning model class which uses the .tflite files
+    TransferLearningModelWrapper tlModelGeneric;
+
+    kNN kNNModel;
+
+    int k_nearest_neighbours_max;
+    boolean kNNModelLoaded;
+    boolean tlModelLoaded;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_confusion_matrix);
+
+        confusionMatrixKNN = new int[N_ACTIVITIES][N_ACTIVITIES];
+        confusionMatrixGeneric = new int[N_ACTIVITIES][N_ACTIVITIES];
+        confusionMatrixTL = new int[N_ACTIVITIES][N_ACTIVITIES];
+
+        k_nearest_neighbours_max = UsePreTrainedData.k_nearest_neighbours_max;
+        tlModelLoaded = false;
+        kNNModelLoaded = false;
 
         x_accel = new ArrayList<>();
         y_accel = new ArrayList<>();
@@ -99,6 +130,38 @@ public class CreateConfusionMatrix extends AppCompatActivity implements SensorEv
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
+        kNNModel = new kNN(null);
+
+        tlModel = new TransferLearningModelWrapper(getApplicationContext());
+        tlModelGeneric = new TransferLearningModelWrapper(getApplicationContext());
+
+        String fileNameKNN = TrainNewModel.KNN_PRE_TRAINED_MODEL_NAME;
+        String fileNameTL = TrainNewModel.TL_PRE_TRAINED_MODEL_NAME;
+
+        //load kNN model
+        File modelPath = getApplicationContext().getFilesDir();
+        File modelFile = new File(modelPath, fileNameKNN+".float");
+
+        if(modelFile.exists()) {
+            kNNModel.loadFeatureMatrix(getFilesDir() + File.separator +  fileNameKNN);
+            if(kNNModel.getAmountNeighbours() < k_nearest_neighbours_max) k_nearest_neighbours_max = (int) kNNModel.getAmountNeighbours()/2;
+            kNNModelLoaded = true;
+        } else {
+            Toast.makeText(getApplicationContext(), "error while loading kNN model", Toast.LENGTH_SHORT).show();
+        }
+
+        //load TL model
+        modelPath = getApplicationContext().getFilesDir();
+        modelFile = new File(modelPath, fileNameTL);
+
+        if(modelFile.exists()){
+            tlModel.loadModel(modelFile);
+            tlModelLoaded = true;
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "error while loading TF model", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     protected void onPause() {
@@ -112,12 +175,18 @@ public class CreateConfusionMatrix extends AppCompatActivity implements SensorEv
         super.onResume();
     }
 
+
     protected void onDestroy() {
-        mSensorManager = null;
+        super.onDestroy();
+        tlModel.close();
+        tlModel = null;
+        kNNModel = null;
         x_accel.clear();
         y_accel.clear();
         z_accel.clear();
-        super.onDestroy();
+        tlModelGeneric.close();
+        tlModelGeneric = null;
+        mSensorManager = null;
     }
 
     @Override
@@ -238,6 +307,7 @@ public class CreateConfusionMatrix extends AppCompatActivity implements SensorEv
         someDataCollected = true; //if no data was collected, don't show the dialog if the back button is pressed
         //add data to kNN model
         int i = 0;
+        int indexTrueActivity = 0;
 
 
 
@@ -256,6 +326,7 @@ public class CreateConfusionMatrix extends AppCompatActivity implements SensorEv
         for (i = 0; i < N_ACTIVITIES; i++) {
             if (selectedActivity.equals(ALL_ACTIVITIES_NAMES[i])) {
                 instanceCounter[i] += 1;
+                indexTrueActivity = i;
                 break;
             }
         }
@@ -270,6 +341,66 @@ public class CreateConfusionMatrix extends AppCompatActivity implements SensorEv
         instanceCounterArrays.append("  ]");
         instanceTextView.setText(instanceCounterArrays);
 
+        //predict activity for kNN
+        float max_val = 0;
+        int index_max = 0;
+
+        if(kNNModelLoaded) {
+            float[] kNNPrediction = kNNModel.predictClasses(x_accel, y_accel, z_accel, k_nearest_neighbours_max);
+
+            for (i = 0; i < kNNPrediction.length; i++) {
+                if (kNNPrediction[i] > max_val) {
+                    max_val = kNNPrediction[i];
+                    index_max = i;
+                }
+            }
+        }
+
+        //write value in corresponding confusion matrix
+        confusionMatrixKNN[indexTrueActivity][index_max] += 1;
+
+
+
+        if(tlModelLoaded) {
+
+            float[] input = toFloatArray(input_signal);
+            float[] prediction_values = new float[N_ACTIVITIES];
+
+            //=======================================================
+            // generic Model
+            max_val = 0;
+            index_max = 0;
+            TransferLearningModel.Prediction[] predictionsGeneric = tlModelGeneric.predict(input);
+
+            for (i = 0; i < N_ACTIVITIES; i++) {
+                prediction_values[i] =  predictionsGeneric[i].getConfidence();
+                if (prediction_values[i] > max_val) {
+                    max_val = prediction_values[i];
+                    index_max = i;
+                }
+            }
+            //write value in corresponding confusion matrix
+            confusionMatrixGeneric[indexTrueActivity][index_max] += 1;
+
+
+            //=======================================================
+            // personalized Model
+            max_val = 0;
+            index_max = 0;
+            TransferLearningModel.Prediction[] predictionsTF = tlModel.predict(input);
+
+            for (i = 0; i < N_ACTIVITIES; i++) {
+                prediction_values[i] =  predictionsTF[i].getConfidence() ;
+                if (prediction_values[i] > max_val) {
+                    max_val = prediction_values[i];
+                    index_max = i;
+                }
+            }
+
+            confusionMatrixTL[indexTrueActivity][index_max] += 1;
+
+
+        }
 
         //Clear n entries
         if(PREDICT_AFTER_N_NEW_SAMPLES == 0) {
@@ -285,48 +416,56 @@ public class CreateConfusionMatrix extends AppCompatActivity implements SensorEv
         }
 
         input_signal.clear();
+
+
+
+
+
     }
 
+    private float[] toFloatArray(List<Float> list) {
+        int i = 0;
+        float[] array = new float[list.size()];
+
+        for (Float f : list) {
+            array[i++] = (f != null ? f : Float.NaN);
+        }
+        return array;
+    }
 
     /**  * Called when the user taps the Calculate Confusion Matrix button    */
     public void calculateConfusionMatrix(View view) {
 
-
-        // Create the object of AlertDialog Builder class
-        AlertDialog.Builder builder = new AlertDialog.Builder(CreateConfusionMatrix.this);
-
-        // Set the message show for the Alert time
-        builder.setMessage("Are you sure?");
-
-        // Set Cancelable false for when the user clicks on the outside the Dialog Box then it will remain show
-        builder.setCancelable(false);
-
-        // Set the positive button with yes name OnClickListener method is use of DialogInterface interface.
-        builder.setPositiveButton("Yes",
-                (dialog, which) -> {
-
-                    Intent intent = new Intent(CreateConfusionMatrix.this, ShowConfusionMatrix.class);
-                    intent.putExtra(tokenLabels, collectedDataLabels);
-//                    intent.putExtra(tokenData, collectedData);
+        if (collectingDataButtonPressed) {
+            startCollectingData(null); //stop data collection if is running
+        }
 
 
-                    startActivity(intent);
 
 
-                });
+        //convert 2D array to 1D
+        //from: https://stackoverflow.com/questions/8935367/convert-a-2d-array-into-a-1d-array
+        int[] confKNN = Stream.of(confusionMatrixKNN) //we start with a stream of objects Stream<int[]>
+                .flatMapToInt(IntStream::of) //we I'll map each int[] to IntStream
+                .toArray(); //we're now IntStream, just collect the ints to array.
 
-        // Set the Negative button with No name OnClickListener method is use of DialogInterface interface.
-        builder.setNegativeButton("No",
-                (dialog, which) -> {
-                    // If user click no  then dialog box is canceled.
-                    dialog.cancel();
-                });
+        int[] confGeneric = Stream.of(confusionMatrixGeneric) //we start with a stream of objects Stream<int[]>
+                .flatMapToInt(IntStream::of) //we I'll map each int[] to IntStream
+                .toArray(); //we're now IntStream, just collect the ints to array
 
-        // Create the Alert dialog
-        AlertDialog alertDialog = builder.create();
+        int[] confTL = Stream.of(confusionMatrixTL) //we start with a stream of objects Stream<int[]>
+                .flatMapToInt(IntStream::of) //we I'll map each int[] to IntStream
+                .toArray(); //we're now IntStream, just collect the ints to array
 
-        // Show the Alert Dialog box
-        alertDialog.show();
+        Intent intent = new Intent(CreateConfusionMatrix.this, ShowConfusionMatrix.class);
+        intent.putExtra(tokenKNN, confKNN);
+        intent.putExtra(tokenGeneric, confGeneric);
+        intent.putExtra(tokenTL, confTL);
+
+        startActivity(intent);
+
+
+
     }
 
 

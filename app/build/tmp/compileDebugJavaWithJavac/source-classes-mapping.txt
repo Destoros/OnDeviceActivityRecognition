@@ -6,6 +6,8 @@ org/tensorflow/lite/examples/transfer/UsePreTrainedData.java
  org.tensorflow.lite.examples.transfer.UsePreTrainedData
 org/tensorflow/lite/examples/transfer/ShowConfusionMatrix.java
  org.tensorflow.lite.examples.transfer.ShowConfusionMatrix
+org/tensorflow/lite/examples/transfer/VerticalTextView.java
+ org.tensorflow.lite.examples.transfer.VerticalTextView
 org/tensorflow/lite/examples/transfer/BuildConfig.java
  org.tensorflow.lite.examples.transfer.BuildConfig
 org/tensorflow/lite/examples/transfer/MainActivity.java

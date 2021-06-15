@@ -1068,6 +1068,7 @@ id ALT
 id CTRL
 id FUNCTION
 id META
+id MyGridLayout
 id SHIFT
 id SYM
 id accessibility_action_clickable_span
@@ -1136,6 +1137,9 @@ id button
 id button2
 id button3
 id button4
+id button5
+id button6
+id button7
 id buttonPanel
 id center
 id center_horizontal
@@ -1287,7 +1291,6 @@ id tag_screen_reader_focusable
 id tag_transition_group
 id tag_unhandled_key_event_manager
 id tag_unhandled_key_listeners
-id testTextView
 id text
 id text2
 id textSpacerNoButtons
@@ -1432,6 +1435,9 @@ string Loss
 string MissingFeatureMatrix
 string OR
 string SaveAsPreTrainedModel
+string ShowGenericMatrix
+string ShowKNNMatrix
+string ShowTLMatrix
 string StartCollectingData
 string TrainingText
 string UseNewTrainedModel

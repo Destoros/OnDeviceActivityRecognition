@@ -40,7 +40,7 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
     public static final String TL_TOKEN = TrainNewModel.TL_TOKEN;
     public static final String TL_PRE_TRAINED_MODEL_NAME = TrainNewModel.TL_PRE_TRAINED_MODEL_NAME;
 
-    int k_nearest_neighbours_max = 51; //numbers of neighbours to consider for kNN
+    static int k_nearest_neighbours_max = 51; //numbers of neighbours to consider for kNN
 
     boolean useNewTrainedModel = false;
     boolean tlModelLoaded = false;

@@ -32,8 +32,12 @@
 
 
   <string name="instanceConfusionMatrix">The array below depicts how many instances you collected for each activity.</string>
-  <string name="CalculateConfusionMatrix">3) Press the button below to calculate the confusion matrix</string>
-  <string name="BtnCalcConfusionMatrix">Calculate Confusion Matrix</string>
+  <string name="CalculateConfusionMatrix">3) Press the button below to show the confusion matrix. The pre trained model will be used.</string>
+  <string name="BtnCalcConfusionMatrix">Show Confusion Matrix</string>
+
+  <string name="ShowKNNMatrix"> Show kNN Confusion Matrix</string>
+  <string name="ShowGenericMatrix"> Show Generic Model Confusion Matrix</string>
+  <string name="ShowTLMatrix"> Show TL Model Confusion Matrix</string>
 
 
   <!-- IMPORTANT: THIS LIST HAS TO FOLLOW THE LIST IN TransferLearningModelWrapper.java, OTHERWISE THE PROGRAM WONT WORK PROPERLY-->
