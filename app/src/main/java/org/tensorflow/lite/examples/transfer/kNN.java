@@ -57,10 +57,8 @@ public class kNN {
 
         float[] currentFeatures = getFeatures(x, y, z);
 
-//        float[] test = currentFeatures; //====================================================================================
 
         for(int i = 0; i < this.featureMatrix.size(); i++) {
-//            float[] test2 = this.featureMatrix.get(i); //====================================================================================
             distances[i][0] = euclideanDistance(this.featureMatrix.get(i), currentFeatures);
             distances[i][1] = (float) labelsFeatureMatrix.get(i); //converting a float 1.00000 to an integer results in 1 even if it is off a little(like 1-0.00000000001 still gets converted to the integer 1)
         }
@@ -82,7 +80,7 @@ public class kNN {
     }
 
 
-    public String getActivityNameFromIndex(int index) {
+    public String getActivityNameFromIndex(int index) throws IndexOutOfBoundsException{
 
         if(index > this.activityNames.size()) {
             throw new IndexOutOfBoundsException();

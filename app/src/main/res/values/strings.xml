@@ -2,8 +2,8 @@
 <resources>
   <string name="app_name">Activity Recognition</string>
   <string name="logo_title">On-Device Activity Recognizer</string>
-  <string name="title_screen_option_text">You can either train a new model or use an already trained model. If you use this app for the first time there is no pre trained model and the personalized model behaves the same as the generic model.</string>
-
+  <string name="title_screen_option_text">You can either train a new model or use an already trained model. If you use this app for the first time there is no pre trained model and the kNN and TL model will behave randomly.</string>
+  <string name="title_screen_option_text_2">You can also create a confusion matrix for the pre trained model or load the last model which was trained in "Train a New Model" and did not overwrite the pre trained model.</string>
 
   <string name="BtnPreTrainedModel">Use a pre trained model</string>
   <string name="BtnTrainNewModel">Train a new model</string>
@@ -34,6 +34,7 @@
   <string name="instanceConfusionMatrix">The array below depicts how many instances you collected for each activity.</string>
   <string name="CalculateConfusionMatrix">3) Press the button below to show the confusion matrix. The pre trained model will be used.</string>
   <string name="BtnCalcConfusionMatrix">Show Confusion Matrix</string>
+  <string name="BtnLoadLastConfMatrix">Load Last Confusion Matrix</string>
 
   <string name="ShowKNNMatrix"> Show kNN Confusion Matrix</string>
   <string name="ShowGenericMatrix"> Show Generic Model Confusion Matrix</string>

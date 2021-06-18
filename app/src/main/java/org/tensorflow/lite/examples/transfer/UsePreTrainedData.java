@@ -245,6 +245,7 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
         try {
             genericModel = new Interpreter(TensorFlowLiteClassifier.loadModelFile(getAssets(), "converted_model.tflite"));
             Toast.makeText(getApplicationContext(), "Generic model loaded", Toast.LENGTH_SHORT).show();
+            genericModelLoaded = true;
         } catch (IOException e) {
             Toast.makeText(getApplicationContext(), "IO exception", Toast.LENGTH_SHORT).show();
             Toast.makeText(getApplicationContext(), "Error while loading generic model", Toast.LENGTH_SHORT).show();
@@ -328,7 +329,7 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
 
 
         //use generic and personalized Transfer Learning model
-        if(tlModelLoaded) {
+
         i = 0;
             while (i < NUM_SAMPLES) {
                 input_signal.add(x_accel.get(i));
@@ -337,8 +338,9 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
                 i++;
             }
             float[] input = toFloatArray(input_signal);
-            float[] prediction_values = new float[genericTextViews.size()];
 
+
+        if(genericModelLoaded) {
             //=======================================================
             // generic Model
             max_val = 0;
@@ -356,8 +358,8 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
             //LIE_TO_STAND
 
             //put all those classes into the running class
-            for(i = N_ACTIVITIES; i < output.length; i++) {
-                output[0][N_ACTIVITIES-1] += output[0][i];
+            for (i = N_ACTIVITIES; i < output.length; i++) {
+                output[0][N_ACTIVITIES - 1] += output[0][i];
             }
 
 
@@ -376,17 +378,19 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
                     genericTextViews.get(i).setTextColor(ResourcesCompat.getColor(getResources(), R.color.colour_not_active, null)); //without theme);
                 }
             }
+        }
 
 
 
 
 
 
-
+        if(tlModelLoaded) {
             //=======================================================
             // personalized Model
             max_val = 0;
             index_max = 0;
+            float[] prediction_values = new float[genericTextViews.size()];
             Prediction[] predictionsTF = tlModel.predict(input);
 
             for (i = 0; i < transferTextViews.size(); i++) {

@@ -24,7 +24,13 @@ import android.widget.Toast;
 import org.tensorflow.lite.examples.transfer.api.TransferLearningModel;
 import org.w3c.dom.Text;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +50,7 @@ public class CreateConfusionMatrix extends AppCompatActivity implements SensorEv
     public static final String tokenKNN = "KNN";
     public static final String tokenGeneric = "GENERIC";
     public static final String tokenTL= "TRANSFER_LEARNING";
+    public static final String confusionMatrixFileName = "confMatrix";
 
 
 
@@ -441,6 +448,9 @@ public class CreateConfusionMatrix extends AppCompatActivity implements SensorEv
         }
 
 
+        saveConfusionMatrix(); //save the data from the confusion matrix
+
+
 
 
         //convert 2D array to 1D
@@ -467,6 +477,92 @@ public class CreateConfusionMatrix extends AppCompatActivity implements SensorEv
 
 
     }
+
+
+    private void saveConfusionMatrix(){
+
+
+        DataOutputStream fOutStream;
+        String fileName = getFilesDir() + File.separator + confusionMatrixFileName; //get path to internal storage
+
+
+        try {                           //for android studio fileName = getFilesDir() + File.separator + actual_file_name
+            fOutStream = new DataOutputStream (new FileOutputStream(fileName+".int")); //feature matrix
+
+            for(int i = 0; i < N_ACTIVITIES; i++) {
+                for(int j = 0; j < N_ACTIVITIES; j++) {
+                    fOutStream.writeInt(confusionMatrixKNN[i][j]);
+                }
+            }
+
+            for(int i = 0; i < N_ACTIVITIES; i++) {
+                for(int j = 0; j < N_ACTIVITIES; j++) {
+                    fOutStream.writeInt(confusionMatrixGeneric[i][j]);
+                }
+            }
+
+            for(int i = 0; i < N_ACTIVITIES; i++) {
+                for(int j = 0; j < N_ACTIVITIES; j++) {
+                    fOutStream.writeInt(confusionMatrixTL[i][j]);
+                }
+            }
+
+
+            fOutStream.flush();
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+    public void loadConfusionMatrix(View view) {
+        //Reading from a file
+        DataInputStream fInpStream;
+        String fileName = getFilesDir() + File.separator + confusionMatrixFileName; //get path to internal storage
+
+
+        //load feature matrix
+        try {
+            fInpStream = new DataInputStream (new FileInputStream(fileName+".int")); //feature matrix
+
+            for(int i = 0; i < N_ACTIVITIES; i++) {
+                for(int j = 0; j < N_ACTIVITIES; j++) {
+                    confusionMatrixKNN[i][j] = fInpStream.readInt();
+                }
+            }
+
+            for(int i = 0; i < N_ACTIVITIES; i++) {
+                for(int j = 0; j < N_ACTIVITIES; j++) {
+                    confusionMatrixGeneric[i][j] = fInpStream.readInt();
+                }
+            }
+
+            for(int i = 0; i < N_ACTIVITIES; i++) {
+                for(int j = 0; j < N_ACTIVITIES; j++) {
+                    confusionMatrixTL[i][j] = fInpStream.readInt();
+                }
+            }
+
+            calculateConfusionMatrix(null);
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "error while loading confusion matrix", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "error while loading confusion matrix", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+
 
 
 
