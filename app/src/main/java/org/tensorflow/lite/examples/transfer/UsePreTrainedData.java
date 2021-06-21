@@ -23,6 +23,7 @@ import org.tensorflow.lite.examples.transfer.models.TensorFlowLiteClassifier;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -252,9 +253,6 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
         }
 
 
-
-
-
     }
 
 
@@ -345,6 +343,15 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
             // generic Model
             max_val = 0;
             index_max = 0;
+
+
+            //NORMALIZE INPUT TO -1, 1 df_train['x-axis'] / df_train['x-axis'].max()
+            //also normalize values when training
+            //change deprecated interpreter
+
+
+
+
 
             float[][] output = new float[1][12]; //tflite library return a 1x12 float array
             genericModel.run(input, output);
