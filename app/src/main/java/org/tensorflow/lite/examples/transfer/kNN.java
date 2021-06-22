@@ -43,7 +43,7 @@ public class kNN {
 
         //k is the amount of neighbours to compare
         if(k > this.featureMatrix.size()) {
-            throw new IndexOutOfBoundsException("Requesting more neighbours to compare than there are in the feature Matrix. Reqeusted Amount of neighbours:" + k + ". Rows in feature matirx = " + this.featureMatrix.size());
+            throw new IndexOutOfBoundsException("Requesting more neighbours to compare than there are in the feature Matrix. Requested Amount of neighbours:" + k + ". Rows in feature matrix = " + this.featureMatrix.size());
         }
 
         float[][] distances = new float[this.featureMatrix.size()][2]; //create a new array which contains the distance to each feature in the feature matrix and the corresponding activity

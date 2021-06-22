@@ -22,7 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.tensorflow.lite.examples.transfer.api.TransferLearningModel;
-import org.w3c.dom.Text;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -31,10 +30,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -76,6 +73,7 @@ public class CreateConfusionMatrix extends AppCompatActivity implements SensorEv
     int[][] confusionMatrixTL;
 
     String selectedActivity;
+    String delayedSelectedActivity;
 
     TextView instanceTextView;
 
@@ -173,9 +171,10 @@ public class CreateConfusionMatrix extends AppCompatActivity implements SensorEv
 
     protected void onPause() {
         super.onPause();
-        collectingDataButtonPressed = false;
+        if (collectingDataButtonPressed) {
+            startCollectingData(null); //stop data collection
+        }
         mSensorManager.unregisterListener(this);
-        collectingDataButton.setText(R.string.BtnStartCollectingData);
     }
 
     protected void onResume() {
@@ -219,7 +218,11 @@ public class CreateConfusionMatrix extends AppCompatActivity implements SensorEv
 
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         // retrieve the selected item from the spinner
-        selectedActivity = (String) parent.getItemAtPosition(pos);
+        if(!collectingDataButtonPressed) {
+            selectedActivity = (String) parent.getItemAtPosition(pos);
+        }
+
+        delayedSelectedActivity = (String) parent.getItemAtPosition(pos);
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
@@ -231,36 +234,42 @@ public class CreateConfusionMatrix extends AppCompatActivity implements SensorEv
     /**  * Called when the user taps the Collect Data button    */
     public void startCollectingData(View view) {
 
-
-        if (!collectingDataButtonPressed) {
-            collectingDataButtonPressed = true;
-            collectingDataButton.setText("3");
-
-            handler.postDelayed(() -> {
-                if (collectingDataButtonPressed) collectingDataButton.setText("2");
-            }, 1000);
-
-            handler.postDelayed(() -> {
-                if (collectingDataButtonPressed) collectingDataButton.setText("1");
-            }, 2000);
-
-            handler.postDelayed(() -> {
-                if (collectingDataButtonPressed) collectingDataButton.setText("0");
-            }, 3000);
-
-            handler.postDelayed(() -> {
-                if (collectingDataButtonPressed) startCollectingDataDelayed();
-            }, 3050);
-
+        if (view != null && collectingDataButtonPressed) {
+            Toast.makeText(getApplicationContext(), "Press volume up or volume down to stop collecting data", Toast.LENGTH_SHORT).show();
 
         } else {
-            handler.removeCallbacksAndMessages(null);
-            collectingDataButtonPressed = false;
-            mSensorManager.unregisterListener(this);
-            collectingDataButton.setText(R.string.BtnStartCollectingData);
-            x_accel.clear();
-            y_accel.clear();
-            z_accel.clear();
+
+
+            if (!collectingDataButtonPressed) {
+                collectingDataButtonPressed = true;
+                collectingDataButton.setText("3");
+
+                handler.postDelayed(() -> {
+                    if (collectingDataButtonPressed) collectingDataButton.setText("2");
+                }, 1000);
+
+                handler.postDelayed(() -> {
+                    if (collectingDataButtonPressed) collectingDataButton.setText("1");
+                }, 2000);
+
+                handler.postDelayed(() -> {
+                    if (collectingDataButtonPressed) collectingDataButton.setText("0");
+                }, 3000);
+
+                handler.postDelayed(() -> {
+                    if (collectingDataButtonPressed) startCollectingDataDelayed();
+                }, 3050);
+
+
+            } else {
+                handler.removeCallbacksAndMessages(null);
+                collectingDataButtonPressed = false;
+                mSensorManager.unregisterListener(this);
+                collectingDataButton.setText(R.string.BtnStartCollectingData);
+                x_accel.clear();
+                y_accel.clear();
+                z_accel.clear();
+            }
         }
     }
 
@@ -275,24 +284,32 @@ public class CreateConfusionMatrix extends AppCompatActivity implements SensorEv
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){
 
-        if (keyCode == KeyEvent.KEYCODE_VOLUME_UP || keyCode == KeyEvent.KEYCODE_VOLUME_DOWN){
+
+
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_UP || keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_POWER ){
+
 
             if (collectingDataButtonPressed) {
                 startCollectingData(null); //stop data collection
+                selectedActivity = delayedSelectedActivity;
             }
 
             return true;
         }
+
+        if (collectingDataButtonPressed) return true; //if it is another button, dont do anything, stay on this screen to collect data
 
         return super.onKeyDown(keyCode, event);
     }
 
     @Override
     public void onBackPressed() {
+        //only do something if we dont collect data right now
+        if (!collectingDataButtonPressed) {
 
-        if(someDataCollected) doExit();
-        else super.onBackPressed();
-
+            if (someDataCollected) doExit();
+            else super.onBackPressed();
+        }
     }
 
 
@@ -443,39 +460,35 @@ public class CreateConfusionMatrix extends AppCompatActivity implements SensorEv
     /**  * Called when the user taps the Calculate Confusion Matrix button    */
     public void calculateConfusionMatrix(View view) {
 
-        if (collectingDataButtonPressed) {
-            startCollectingData(null); //stop data collection if is running
+        if (!collectingDataButtonPressed) {
+
+
+            saveConfusionMatrix(); //save the data from the confusion matrix
+
+
+            //convert 2D array to 1D
+            //from: https://stackoverflow.com/questions/8935367/convert-a-2d-array-into-a-1d-array
+            int[] confKNN = Stream.of(confusionMatrixKNN) //we start with a stream of objects Stream<int[]>
+                    .flatMapToInt(IntStream::of) //we I'll map each int[] to IntStream
+                    .toArray(); //we're now IntStream, just collect the ints to array.
+
+            int[] confGeneric = Stream.of(confusionMatrixGeneric) //we start with a stream of objects Stream<int[]>
+                    .flatMapToInt(IntStream::of) //we I'll map each int[] to IntStream
+                    .toArray(); //we're now IntStream, just collect the ints to array
+
+            int[] confTL = Stream.of(confusionMatrixTL) //we start with a stream of objects Stream<int[]>
+                    .flatMapToInt(IntStream::of) //we I'll map each int[] to IntStream
+                    .toArray(); //we're now IntStream, just collect the ints to array
+
+            Intent intent = new Intent(CreateConfusionMatrix.this, ShowConfusionMatrix.class);
+            intent.putExtra(tokenKNN, confKNN);
+            intent.putExtra(tokenGeneric, confGeneric);
+            intent.putExtra(tokenTL, confTL);
+
+            startActivity(intent);
+
+
         }
-
-
-        saveConfusionMatrix(); //save the data from the confusion matrix
-
-
-
-
-        //convert 2D array to 1D
-        //from: https://stackoverflow.com/questions/8935367/convert-a-2d-array-into-a-1d-array
-        int[] confKNN = Stream.of(confusionMatrixKNN) //we start with a stream of objects Stream<int[]>
-                .flatMapToInt(IntStream::of) //we I'll map each int[] to IntStream
-                .toArray(); //we're now IntStream, just collect the ints to array.
-
-        int[] confGeneric = Stream.of(confusionMatrixGeneric) //we start with a stream of objects Stream<int[]>
-                .flatMapToInt(IntStream::of) //we I'll map each int[] to IntStream
-                .toArray(); //we're now IntStream, just collect the ints to array
-
-        int[] confTL = Stream.of(confusionMatrixTL) //we start with a stream of objects Stream<int[]>
-                .flatMapToInt(IntStream::of) //we I'll map each int[] to IntStream
-                .toArray(); //we're now IntStream, just collect the ints to array
-
-        Intent intent = new Intent(CreateConfusionMatrix.this, ShowConfusionMatrix.class);
-        intent.putExtra(tokenKNN, confKNN);
-        intent.putExtra(tokenGeneric, confGeneric);
-        intent.putExtra(tokenTL, confTL);
-
-        startActivity(intent);
-
-
-
     }
 
 

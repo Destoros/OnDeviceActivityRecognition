@@ -33,9 +33,9 @@ import java.util.List;
 
 public class TrainNewModel extends AppCompatActivity implements  SensorEventListener,AdapterView.OnItemSelectedListener {
 
-    public static final int NUM_SAMPLES = 200;
-    public static int MY_SENSOR_DELAY = 20000; //20 000us = 0.02s  = 50 Hz
-    public static final int PREDICT_AFTER_N_NEW_SAMPLES = 10; //fill the accelerometer arrays with the initial amount of samples of 200; after that don't delete all the old values,
+    public static final int NUM_SAMPLES = CollectData.NUM_SAMPLES;
+    public static int MY_SENSOR_DELAY = CollectData.MY_SENSOR_DELAY; //20 000us = 0.02s  = 50 Hz
+    public static final int PREDICT_AFTER_N_NEW_SAMPLES = CollectData.PREDICT_AFTER_N_NEW_SAMPLES; //fill the accelerometer arrays with the initial amount of samples of 200; after that don't delete all the old values,
     // just delete 10 samples and and wait until the accelerometer sensor delivers 10 new Samples; then predict the activity again. (200 is the number of NUM_SAMPLES
     // 10 is the number of PREDICT_AFTER_N_NEW_SAMPLES)
     // PREDICT_AFTER_N_NEW_SAMPLES = 0 removes all 200 samples and waits until the list is fully filled again
@@ -67,6 +67,7 @@ public class TrainNewModel extends AppCompatActivity implements  SensorEventList
     static List<Float> input_signal;
 
     String selectedActivity;
+    String delayedSelectedActivity;
 
     TextView instanceTextView;
     TextView lossTextView;
@@ -127,9 +128,11 @@ public class TrainNewModel extends AppCompatActivity implements  SensorEventList
 
     protected void onPause() {
         super.onPause();
-        collectingDataButtonPressed = false;
+        if (collectingDataButtonPressed) {
+            startCollectingData(null); //stop data collection
+        }
         mSensorManager.unregisterListener(this);
-        collectingDataButton.setText(R.string.BtnStartCollectingData);
+
     }
 
     protected void onResume() {
@@ -174,7 +177,13 @@ public class TrainNewModel extends AppCompatActivity implements  SensorEventList
 
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         // retrieve the selected item from the spinner
-        selectedActivity = (String) parent.getItemAtPosition(pos);
+        if(!collectingDataButtonPressed) {
+            selectedActivity = (String) parent.getItemAtPosition(pos);
+        }
+
+        delayedSelectedActivity = (String) parent.getItemAtPosition(pos);
+
+
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
@@ -184,36 +193,42 @@ public class TrainNewModel extends AppCompatActivity implements  SensorEventList
     /**  * Called when the user taps the Collect Data button    */
     public void startCollectingData(View view) {
 
-
-        if (!collectingDataButtonPressed) {
-            collectingDataButtonPressed = true;
-            collectingDataButton.setText("3");
-
-            handler.postDelayed(() -> {
-                if (collectingDataButtonPressed) collectingDataButton.setText("2");
-            }, 1000);
-
-            handler.postDelayed(() -> {
-                if (collectingDataButtonPressed) collectingDataButton.setText("1");
-            }, 2000);
-
-            handler.postDelayed(() -> {
-                if (collectingDataButtonPressed) collectingDataButton.setText("0");
-            }, 3000);
-
-            handler.postDelayed(() -> {
-                if (collectingDataButtonPressed) startCollectingDataDelayed();
-            }, 3050);
-
+        if (view != null && collectingDataButtonPressed) {
+            Toast.makeText(getApplicationContext(), "Press volume up or volume down to stop collecting data", Toast.LENGTH_SHORT).show();
 
         } else {
-            handler.removeCallbacksAndMessages(null);
-            collectingDataButtonPressed = false;
-            mSensorManager.unregisterListener(this);
-            collectingDataButton.setText(R.string.BtnStartCollectingData);
-            x_accel.clear();
-            y_accel.clear();
-            z_accel.clear();
+
+
+            if (!collectingDataButtonPressed) {
+                collectingDataButtonPressed = true;
+                collectingDataButton.setText("3");
+
+                handler.postDelayed(() -> {
+                    if (collectingDataButtonPressed) collectingDataButton.setText("2");
+                }, 1000);
+
+                handler.postDelayed(() -> {
+                    if (collectingDataButtonPressed) collectingDataButton.setText("1");
+                }, 2000);
+
+                handler.postDelayed(() -> {
+                    if (collectingDataButtonPressed) collectingDataButton.setText("0");
+                }, 3000);
+
+                handler.postDelayed(() -> {
+                    if (collectingDataButtonPressed) startCollectingDataDelayed();
+                }, 3050);
+
+
+            } else {
+                handler.removeCallbacksAndMessages(null);
+                collectingDataButtonPressed = false;
+                mSensorManager.unregisterListener(this);
+                collectingDataButton.setText(R.string.BtnStartCollectingData);
+                x_accel.clear();
+                y_accel.clear();
+                z_accel.clear();
+            }
         }
     }
 
@@ -228,23 +243,32 @@ public class TrainNewModel extends AppCompatActivity implements  SensorEventList
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){
 
-        if (keyCode == KeyEvent.KEYCODE_VOLUME_UP || keyCode == KeyEvent.KEYCODE_VOLUME_DOWN){
+
+
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_UP || keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_POWER ){
+
 
             if (collectingDataButtonPressed) {
                 startCollectingData(null); //stop data collection
+                selectedActivity = delayedSelectedActivity;
             }
 
             return true;
         }
+
+        if (collectingDataButtonPressed) return true; //if it is another button, dont do anything, stay on this screen to collect data
 
         return super.onKeyDown(keyCode, event);
     }
 
     @Override
     public void onBackPressed() {
+        //only do something if we dont collect data right now
+        if (!collectingDataButtonPressed) {
 
-        if(someDataCollected) doExit();
-        else super.onBackPressed();
+            if (someDataCollected) doExit();
+            else super.onBackPressed();
+        }
     }
 
 
@@ -264,8 +288,19 @@ public class TrainNewModel extends AppCompatActivity implements  SensorEventList
     public void processInput() {
 
         someDataCollected = true;
+
+        List<Float> x_values = new ArrayList<Float>();
+        List<Float> y_values = new ArrayList<Float>();
+        List<Float> z_values = new ArrayList<Float>();
+
+        for(int i = 0; i < NUM_SAMPLES; i++) {
+            x_values.add(x_accel.get(i));
+            y_values.add(y_accel.get(i));
+            z_values.add(z_accel.get(i));
+        }
+
         //add data to kNN model
-        myKNN.addToFeatureMatrix(x_accel, y_accel, z_accel, selectedActivity);
+        myKNN.addToFeatureMatrix(x_values, y_values, z_values, selectedActivity);
 
         //add data to TL model
         int i = 0;
@@ -298,19 +333,21 @@ public class TrainNewModel extends AppCompatActivity implements  SensorEventList
         instanceCounterArrays.append("  ]");
         instanceTextView.setText(instanceCounterArrays);
 
-
+        int numDelete = 0;
         //Clear n entries
-        if(PREDICT_AFTER_N_NEW_SAMPLES == 0) {
-            x_accel.clear();
-            y_accel.clear();
-            z_accel.clear();
+        if(PREDICT_AFTER_N_NEW_SAMPLES >= NUM_SAMPLES) {
+            numDelete = NUM_SAMPLES;
         } else {
-            for (i = 0; i < PREDICT_AFTER_N_NEW_SAMPLES; i++) {
-                x_accel.remove(0); //important to remove 0 all the time
-                y_accel.remove(0);
-                z_accel.remove(0);
-            }
+            numDelete = PREDICT_AFTER_N_NEW_SAMPLES;
         }
+
+
+        for (i = 0; i < numDelete; i++) {
+            x_accel.remove(0); //important to remove 0 all the time
+            y_accel.remove(0);
+            z_accel.remove(0);
+        }
+
 
         input_signal.clear();
     }
@@ -331,126 +368,189 @@ public class TrainNewModel extends AppCompatActivity implements  SensorEventList
      */
     public void startTraining(View view) {
 
-        if (collectingDataButtonPressed) {
-            startCollectingData(null); //stop data collection
-        }
+        //only do something if we dont collect data right now
+        if (!collectingDataButtonPressed) {
 
-        if (!startTrainingButtonPressed) {
+            if (!startTrainingButtonPressed) {
 
-            int batchSize = tlModel.getTrainBatchSize();
+                int batchSize = tlModel.getTrainBatchSize();
 
-            if (Arrays.stream(instanceCounter).min().getAsInt() >= batchSize) {
-                startTrainingButtonPressed = true;
-                trainingButton.setText(R.string.BtnStopTraining);
-                tlModel.enableTraining((epoch, loss) -> runOnUiThread(() -> {
-                    String text = String.format(getResources().getString(R.string.Loss), loss);
-                    lossTextView.setText(text);
-                }));
+                if (Arrays.stream(instanceCounter).min().getAsInt() >= batchSize) {
+                    startTrainingButtonPressed = true;
+                    trainingButton.setText(R.string.BtnStopTraining);
+                    tlModel.enableTraining((epoch, loss) -> runOnUiThread(() -> {
+                        String text = String.format(getResources().getString(R.string.Loss), loss);
+                        lossTextView.setText(text);
+                    }));
+                } else {
+                    String message = batchSize + " instances per class are required for training.";
+                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                }
+
             } else {
-                String message = batchSize + " instances per class are required for training.";
-                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                tlModel.disableTraining();
+                startTrainingButtonPressed = false;
+                trainingButton.setText(R.string.BtnStartTraining);
             }
-
-        } else {
-            tlModel.disableTraining();
-            startTrainingButtonPressed = false;
-            trainingButton.setText(R.string.BtnStartTraining);
         }
+    }
+
+    public void loadCollectedExampleData(View view) {
+
+        if(!collectingDataButtonPressed) {
+            //only do something if data is not collected right now
+
+            // Create the object of AlertDialog Builder class
+            AlertDialog.Builder builder = new AlertDialog.Builder(TrainNewModel.this);
+
+            // Set the message show for the Alert time
+            builder.setMessage("Are you sure you want to add the example data to the already recorded one?");
+
+            // Set Cancelable false for when the user clicks on the outside the Dialog Box then it will remain show
+            builder.setCancelable(false);
+
+            // Set the positive button with yes name OnClickListener method is use of DialogInterface interface.
+            builder.setPositiveButton("Yes",
+                    (dialog, which) -> {
+                        //save TL model
+                        String oldSelectedActivity = selectedActivity;
+
+
+                        for (String activity : ALL_ACTIVITIES_NAMES) {
+                            x_accel.clear();
+                            y_accel.clear();
+                            z_accel.clear();
+                            selectedActivity = activity;
+                            CollectData.readMeasurements(getFilesDir(), activity, x_accel, y_accel, z_accel);
+
+                            while (x_accel.size() > NUM_SAMPLES) {
+                                processInput();
+                            }
+
+                        }
+
+                        selectedActivity = oldSelectedActivity;
+                    });
+
+            // Set the Negative button with No name OnClickListener method is use of DialogInterface interface.
+            builder.setNegativeButton("No",
+                    (dialog, which) -> {
+                        // If user click no  then dialog box is canceled.
+                        dialog.cancel();
+                    });
+
+            // Create the Alert dialog
+            AlertDialog alertDialog = builder.create();
+
+            // Show the Alert Dialog box
+            alertDialog.show();
+
+
+        }
+
+
     }
 
 
     //from https://www.geeksforgeeks.org/android-alert-dialog-box-and-how-to-create-it/
     public void useNewTrainedModel(View view) {
+        //only do something if we dont collect data right now
+        if (!collectingDataButtonPressed) {
 
-        // Create the object of AlertDialog Builder class
-        AlertDialog.Builder builder = new AlertDialog.Builder(TrainNewModel.this);
 
-        // Set the message show for the Alert time
-        builder.setMessage("Are you sure your model is trained enough?");
+                // Create the object of AlertDialog Builder class
+            AlertDialog.Builder builder = new AlertDialog.Builder(TrainNewModel.this);
 
-        // Set Cancelable false for when the user clicks on the outside the Dialog Box then it will remain show
-        builder.setCancelable(false);
+            // Set the message show for the Alert time
+            builder.setMessage("Are you sure your model is trained enough?");
 
-        // Set the positive button with yes name OnClickListener method is use of DialogInterface interface.
-        builder.setPositiveButton("Yes",
-                (dialog, which) -> {
-                    //save TL model
-                    File modelPath = getApplicationContext().getFilesDir();
-                    File modelFile = new File(modelPath, TL_MODEL_NAME);
-                    tlModel.saveModel(modelFile);
+            // Set Cancelable false for when the user clicks on the outside the Dialog Box then it will remain show
+            builder.setCancelable(false);
 
-                    //also save the kNN model
-                    myKNN.saveFeatureMatrix(getFilesDir() + File.separator +  KNN_MODEL_NAME);
+            // Set the positive button with yes name OnClickListener method is use of DialogInterface interface.
+            builder.setPositiveButton("Yes",
+                    (dialog, which) -> {
+                        //save TL model
+                        File modelPath = getApplicationContext().getFilesDir();
+                        File modelFile = new File(modelPath, TL_MODEL_NAME);
+                        tlModel.saveModel(modelFile);
 
-                    // Do something in response to button
-                    Intent intent = new Intent(TrainNewModel.this, UsePreTrainedData.class);
-                    intent.putExtra(TL_TOKEN, TL_MODEL_NAME);
-                    intent.putExtra(KNN_TOKEN, KNN_MODEL_NAME);
-                    startActivity(intent);
-                });
+                        //also save the kNN model
+                        myKNN.saveFeatureMatrix(getFilesDir() + File.separator +  KNN_MODEL_NAME);
 
-        // Set the Negative button with No name OnClickListener method is use of DialogInterface interface.
-        builder.setNegativeButton("No",
-                (dialog, which) -> {
-                    // If user click no  then dialog box is canceled.
-                    dialog.cancel();
-                });
+                        // Do something in response to button
+                        Intent intent = new Intent(TrainNewModel.this, UsePreTrainedData.class);
+                        intent.putExtra(TL_TOKEN, TL_MODEL_NAME);
+                        intent.putExtra(KNN_TOKEN, KNN_MODEL_NAME);
+                        startActivity(intent);
+                    });
 
-        // Create the Alert dialog
-        AlertDialog alertDialog = builder.create();
+            // Set the Negative button with No name OnClickListener method is use of DialogInterface interface.
+            builder.setNegativeButton("No",
+                    (dialog, which) -> {
+                        // If user click no  then dialog box is canceled.
+                        dialog.cancel();
+                    });
 
-        // Show the Alert Dialog box
-        alertDialog.show();
+            // Create the Alert dialog
+            AlertDialog alertDialog = builder.create();
+
+            // Show the Alert Dialog box
+            alertDialog.show();
+        }
     }
 
     //from https://www.geeksforgeeks.org/android-alert-dialog-box-and-how-to-create-it/
     public void saveAsPreTrainedModel(View view) {
-
-        // Create the object of AlertDialog Builder class
-        AlertDialog.Builder builder = new AlertDialog.Builder(TrainNewModel.this);
-
-        // Set the message show for the Alert time
-        builder.setMessage("Are you sure you want to overwrite the old model?");
-
-        // Set Alert Title
-        builder.setTitle("Alert !");
-
-        // Set Cancelable false for when the user clicks on the outside the Dialog Box then it will remain show
-        builder.setCancelable(false);
-
-        // Set the positive button with yes name  OnClickListener method is use of DialogInterface interface.
-        builder.setPositiveButton("Yes",
-                (dialog, which) -> {
+        if (!collectingDataButtonPressed) {
 
 
-                    //save TL model
-                    File modelPath = getApplicationContext().getFilesDir();
-                    File modelFile = new File(modelPath, TL_PRE_TRAINED_MODEL_NAME);
-                    tlModel.saveModel(modelFile);
+            // Create the object of AlertDialog Builder class
+            AlertDialog.Builder builder = new AlertDialog.Builder(TrainNewModel.this);
 
-                    //also save the kNN model
-                    myKNN.saveFeatureMatrix(getFilesDir() + File.separator + KNN_PRE_TRAINED_MODEL_NAME);
+            // Set the message show for the Alert time
+            builder.setMessage("Are you sure you want to overwrite the old model?");
 
-                    Toast.makeText(getApplicationContext(), "New Pre Trained Model saved.", Toast.LENGTH_SHORT).show();
+            // Set Alert Title
+            builder.setTitle("Alert !");
 
-                    // Do something in response to button
-                    finish();
-                });
+            // Set Cancelable false for when the user clicks on the outside the Dialog Box then it will remain show
+            builder.setCancelable(false);
 
-        // Set the Negative button with No name OnClickListener method is use of DialogInterface interface.
-        builder
-                .setNegativeButton(
-                        "No",
-                        (dialog, which) -> {
-                            // If user click no then dialog box is canceled.
-                            dialog.cancel();
-                        });
+            // Set the positive button with yes name  OnClickListener method is use of DialogInterface interface.
+            builder.setPositiveButton("Yes",
+                    (dialog, which) -> {
 
-        // Create the Alert dialog
-        AlertDialog alertDialog = builder.create();
 
-        // Show the Alert Dialog box
-        alertDialog.show();
+                        //save TL model
+                        File modelPath = getApplicationContext().getFilesDir();
+                        File modelFile = new File(modelPath, TL_PRE_TRAINED_MODEL_NAME);
+                        tlModel.saveModel(modelFile);
+
+                        //also save the kNN model
+                        myKNN.saveFeatureMatrix(getFilesDir() + File.separator + KNN_PRE_TRAINED_MODEL_NAME);
+
+                        Toast.makeText(getApplicationContext(), "New Pre Trained Model saved.", Toast.LENGTH_SHORT).show();
+
+                        // Do something in response to button
+                        finish();
+                    });
+
+            // Set the Negative button with No name OnClickListener method is use of DialogInterface interface.
+            builder
+                    .setNegativeButton(
+                            "No",
+                            (dialog, which) -> {
+                                // If user click no then dialog box is canceled.
+                                dialog.cancel();
+                            });
+
+            // Create the Alert dialog
+            AlertDialog alertDialog = builder.create();
+
+            // Show the Alert Dialog box
+            alertDialog.show();
+        }
     }
 }
 

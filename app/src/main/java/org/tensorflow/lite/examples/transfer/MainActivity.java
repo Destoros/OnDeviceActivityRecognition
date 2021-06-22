@@ -45,6 +45,12 @@ public class MainActivity extends AppCompatActivity {
     startActivity(intent);
   }
 
+  public void collectData(View view) {
+    Intent intent = new Intent(MainActivity.this, CollectData.class);
+    startActivity(intent);
+  }
+
+
 
 
 

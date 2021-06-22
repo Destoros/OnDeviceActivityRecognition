@@ -1140,6 +1140,7 @@ id button3
 id button4
 id button5
 id button7
+id button8
 id buttonPanel
 id center
 id center_horizontal
@@ -1153,6 +1154,7 @@ id clip_horizontal
 id clip_vertical
 id collapseActionView
 id collectingDataButton
+id collectingDataButton3
 id container
 id content
 id contentPanel
@@ -1297,6 +1299,7 @@ id text2
 id textSpacerNoButtons
 id textSpacerNoTitle
 id textStart
+id textView
 id textView12
 id textView13
 id textView15
@@ -1389,6 +1392,7 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
+layout activity_collect_data
 layout activity_create_confusion_matrix
 layout activity_main
 layout activity_show_confusion_matrix
@@ -1435,7 +1439,9 @@ string BtnTrainNewModel
 string CalculateConfusionMatrix
 string EnterActivityText
 string InstanceText
+string LoadCollectedData
 string Loss
+string MainActivityCollectData
 string MissingFeatureMatrix
 string OR
 string SaveAsPreTrainedModel
@@ -1477,6 +1483,7 @@ string appbar_scrolling_view_behavior
 string bottom_sheet_behavior
 string character_counter_content_description
 string character_counter_pattern
+string explanationGenericModelRunning
 string fab_transformation_scrim_behavior
 string fab_transformation_sheet_behavior
 string hide_bottom_view_on_scroll_behavior

@@ -76,5 +76,15 @@
             android:onClick="LastTrainedModel"
             android:text="@string/BtnLastTrainedModel" />
 
+        <Button
+            android:id="@+id/button8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@color/buttonBackground"
+            android:minHeight="60dip"
+            android:onClick="collectData"
+            android:text="@string/MainActivityCollectData" />
+
     </LinearLayout>
 </LinearLayout>

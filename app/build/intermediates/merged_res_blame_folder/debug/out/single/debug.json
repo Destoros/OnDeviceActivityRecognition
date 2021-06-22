@@ -20,6 +20,10 @@
         "source": "C:\\Users\\Hannes\\Desktop\\OnDeviceActivityRecogApp\\app\\src\\main\\res\\layout\\activity_show_confusion_matrix.xml"
     },
     {
+        "merged": "C:\\Users\\Hannes\\Desktop\\OnDeviceActivityRecogApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_collect_data.xml.flat",
+        "source": "C:\\Users\\Hannes\\Desktop\\OnDeviceActivityRecogApp\\app\\src\\main\\res\\layout\\activity_collect_data.xml"
+    },
+    {
         "merged": "C:\\Users\\Hannes\\Desktop\\OnDeviceActivityRecogApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_logo.xml.flat",
         "source": "C:\\Users\\Hannes\\Desktop\\OnDeviceActivityRecogApp\\app\\src\\main\\res\\drawable\\ic_logo.xml"
     },

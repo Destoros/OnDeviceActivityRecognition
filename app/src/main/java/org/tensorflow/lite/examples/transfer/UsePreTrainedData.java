@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -18,13 +19,11 @@ import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.tensorflow.lite.Interpreter;
+
 import org.tensorflow.lite.examples.transfer.api.TransferLearningModel.Prediction;
-import org.tensorflow.lite.examples.transfer.models.Classification;
 import org.tensorflow.lite.examples.transfer.models.TensorFlowLiteClassifier;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -66,10 +65,10 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
     AssetManager mAssetManager; //the asset manager allows me access to the asset folder (ProjectName/app/src/main/asset in project view and app/assets ind android view)
 
     TransferLearningModelWrapper tlModel; //transfer learning model class which uses the .tflite files
-    Interpreter genericModel;
-//    TensorFlowLiteClassifier genericModel;
+//    Interpreter genericModel;
+    TensorFlowLiteClassifier genericModel;
 
-    kNN kNNModel;
+    kNN kNNModel; //my own written kNN class
 
 
     //stuff needed to programmatically create the layout of the screen(i.e. the activity_use_pre_trained_data.xml file)
@@ -213,7 +212,7 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
 
         if(modelFile.exists()) {
             kNNModel.loadFeatureMatrix(getFilesDir() + File.separator +  fileNameKNN);
-            if(kNNModel.getAmountNeighbours() < k_nearest_neighbours_max) k_nearest_neighbours_max = (int) kNNModel.getAmountNeighbours()/2;
+            if(kNNModel.getAmountNeighbours() < k_nearest_neighbours_max) k_nearest_neighbours_max = kNNModel.getAmountNeighbours()/2 - 1 + (kNNModel.getAmountNeighbours()%2); //make sure this number not is even
             kNNModelLoaded = true;
             Toast.makeText(getApplicationContext(), loadingSucceededKNN, Toast.LENGTH_SHORT).show();
         } else {
@@ -236,24 +235,24 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
         }
 
 //        // load generic model
-//        try {
-//            genericModel = TensorFlowLiteClassifier.create(getAssets(), "GenericModel","converted_model.tflite", "labels.txt");
-//            genericModelLoaded = true;
-//            Toast.makeText(getApplicationContext(), "Generic model loaded", Toast.LENGTH_SHORT).show();
-//        } catch( final Exception e) {
-//            Toast.makeText(getApplicationContext(), "IO exception", Toast.LENGTH_SHORT).show();
-//            Toast.makeText(getApplicationContext(), "Error while loading generic model", Toast.LENGTH_SHORT).show();
-//        }
-
-        // load generic model
         try {
-            genericModel = new Interpreter(TensorFlowLiteClassifier.loadModelFile(getAssets(), "converted_model.tflite"));
-            Toast.makeText(getApplicationContext(), "Generic model loaded", Toast.LENGTH_SHORT).show();
+            genericModel = TensorFlowLiteClassifier.create(getAssets(), "GenericModel","converted_model.tflite", "labels.txt");
             genericModelLoaded = true;
-        } catch (IOException e) {
+            Toast.makeText(getApplicationContext(), "Generic model loaded", Toast.LENGTH_SHORT).show();
+        } catch( final Exception e) {
             Toast.makeText(getApplicationContext(), "IO exception", Toast.LENGTH_SHORT).show();
             Toast.makeText(getApplicationContext(), "Error while loading generic model", Toast.LENGTH_SHORT).show();
         }
+
+        // load generic model old
+//        try {
+//            genericModel = new Interpreter(TensorFlowLiteClassifier.loadModelFile(getAssets(), "converted_model.tflite"));
+//            Toast.makeText(getApplicationContext(), "Generic model loaded", Toast.LENGTH_SHORT).show();
+//            genericModelLoaded = true;
+//        } catch (IOException e) {
+//            Toast.makeText(getApplicationContext(), "IO exception", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(), "Error while loading generic model", Toast.LENGTH_SHORT).show();
+//        }
 
 
     }
@@ -327,7 +326,6 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
         }
 
 
-        //use generic and personalized Transfer Learning model
 
         i = 0;
             while (i < NUM_SAMPLES) {
@@ -360,9 +358,8 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
                 input_clone[i] = input_clone[i]/maxValues[i%3];
             }
 
-            float[][] output = new float[1][12]; //tflite library return a 1x12 float array
-//            Classification out = genericModel.recognize(input);
-            genericModel.run(input_clone, output);
+
+            float[] output = genericModel.recognize(input_clone);
 
             //still need to consider the classes
             //STAND_TO_SIT
@@ -374,19 +371,19 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
 
             //put all those classes into the running class
             for (i = N_ACTIVITIES; i < output.length; i++) {
-                output[0][N_ACTIVITIES - 1] += output[0][i];
+                output[N_ACTIVITIES - 1] += output[i];
             }
 
 
             for (i = 0; i < genericTextViews.size(); i++) {
-                if (output[0][i] > max_val) {
-                    max_val = output[0][i];
+                if (output[i] > max_val) {
+                    max_val = output[i];
                     index_max = i;
                 }
             }
 
             for (i = 0; i < genericTextViews.size(); i++) {
-                genericTextViews.get(i).setText(String.format(Locale.US, "%.2f", output[0][i]));
+                genericTextViews.get(i).setText(String.format(Locale.US, "%.2f", output[i]));
                 if (i == index_max) {
                     genericTextViews.get(i).setTextColor(ResourcesCompat.getColor(getResources(), R.color.colour_active, null)); //without theme);
                 } else {

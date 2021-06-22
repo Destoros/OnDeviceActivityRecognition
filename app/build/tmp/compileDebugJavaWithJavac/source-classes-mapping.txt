@@ -1,26 +1,24 @@
-org/tensorflow/lite/examples/transfer/UsePreTrainedData.java
- org.tensorflow.lite.examples.transfer.UsePreTrainedData
-org/tensorflow/lite/examples/transfer/models/TensorFlowLiteClassifier.java
- org.tensorflow.lite.examples.transfer.models.TensorFlowLiteClassifier
-org/tensorflow/lite/examples/transfer/models/Classification.java
- org.tensorflow.lite.examples.transfer.models.Classification
-org/tensorflow/lite/examples/transfer/MainActivity.java
- org.tensorflow.lite.examples.transfer.MainActivity
-org/tensorflow/lite/examples/transfer/CreateConfusionMatrix.java
- org.tensorflow.lite.examples.transfer.CreateConfusionMatrix
 org/tensorflow/lite/examples/transfer/DataBindingTriggerClass.java
  org.tensorflow.lite.examples.transfer.DataBindingTriggerClass
 org/tensorflow/lite/examples/transfer/TrainNewModel.java
  org.tensorflow.lite.examples.transfer.TrainNewModel
+org/tensorflow/lite/examples/transfer/UsePreTrainedData.java
+ org.tensorflow.lite.examples.transfer.UsePreTrainedData
 org/tensorflow/lite/examples/transfer/ShowConfusionMatrix.java
  org.tensorflow.lite.examples.transfer.ShowConfusionMatrix
+org/tensorflow/lite/examples/transfer/models/TensorFlowLiteClassifier.java
+ org.tensorflow.lite.examples.transfer.models.TensorFlowLiteClassifier
 org/tensorflow/lite/examples/transfer/VerticalTextView.java
  org.tensorflow.lite.examples.transfer.VerticalTextView
 org/tensorflow/lite/examples/transfer/BuildConfig.java
  org.tensorflow.lite.examples.transfer.BuildConfig
-org/tensorflow/lite/examples/transfer/models/Classifier.java
- org.tensorflow.lite.examples.transfer.models.Classifier
+org/tensorflow/lite/examples/transfer/MainActivity.java
+ org.tensorflow.lite.examples.transfer.MainActivity
+org/tensorflow/lite/examples/transfer/CreateConfusionMatrix.java
+ org.tensorflow.lite.examples.transfer.CreateConfusionMatrix
 org/tensorflow/lite/examples/transfer/kNN.java
  org.tensorflow.lite.examples.transfer.kNN
+org/tensorflow/lite/examples/transfer/CollectData.java
+ org.tensorflow.lite.examples.transfer.CollectData
 org/tensorflow/lite/examples/transfer/TransferLearningModelWrapper.java
  org.tensorflow.lite.examples.transfer.TransferLearningModelWrapper
