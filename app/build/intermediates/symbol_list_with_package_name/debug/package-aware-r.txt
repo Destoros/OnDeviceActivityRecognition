@@ -1308,6 +1308,7 @@ id textView19
 id textView2
 id textView20
 id textView3
+id textView5
 id textWatcher
 id text_input_password_toggle
 id textinput_counter
@@ -1438,6 +1439,7 @@ string BtnStopTraining
 string BtnTrainNewModel
 string CalculateConfusionMatrix
 string EnterActivityText
+string InfoForCollectingData
 string InstanceText
 string LoadCollectedData
 string Loss

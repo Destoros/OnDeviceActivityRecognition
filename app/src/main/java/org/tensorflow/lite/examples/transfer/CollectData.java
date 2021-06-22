@@ -34,7 +34,7 @@ public class CollectData extends AppCompatActivity implements SensorEventListene
 
     public static final int NUM_SAMPLES = 200;
     public static int MY_SENSOR_DELAY = 20000; //20 000us = 0.02s  = 50 Hz
-    public static final int PREDICT_AFTER_N_NEW_SAMPLES = 20; //fill the accelerometer arrays with the initial amount of samples of 200; after that don't delete all the old values,
+    public static final int PREDICT_AFTER_N_NEW_SAMPLES = 10; //fill the accelerometer arrays with the initial amount of samples of 200; after that don't delete all the old values,
     // just delete 10 samples and and wait until the accelerometer sensor delivers 10 new Samples; then predict the activity again. (200 is the number of NUM_SAMPLES
     // 10 is the number of PREDICT_AFTER_N_NEW_SAMPLES)
     // PREDICT_AFTER_N_NEW_SAMPLES = 0 removes all 200 samples and waits until the list is fully filled again
