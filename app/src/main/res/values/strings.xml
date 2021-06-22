@@ -40,6 +40,9 @@
   <string name="ShowGenericMatrix"> Show Generic Model Confusion Matrix</string>
   <string name="ShowTLMatrix"> Show TL Model Confusion Matrix</string>
 
+  <string name="BtnSaveNewTrainedModelPreTrainedModel">Save as Pre Trained Model</string>
+
+
 
   <!-- IMPORTANT: THIS LIST HAS TO FOLLOW THE LIST IN TransferLearningModelWrapper.java, OTHERWISE THE PROGRAM WONT WORK PROPERLY-->
   <string-array name="class_array">

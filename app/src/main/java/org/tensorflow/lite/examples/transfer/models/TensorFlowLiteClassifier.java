@@ -14,7 +14,7 @@ import java.util.List;
 import org.tensorflow.lite.Interpreter;
 
 
-public class TensorFlowLiteClassifier implements Classifier {
+public class TensorFlowLiteClassifier {
 
     private Interpreter tfLite;
     private String name;
@@ -49,33 +49,35 @@ public class TensorFlowLiteClassifier implements Classifier {
         return c;
     }
 
-    @Override
+
     public String name() {
         return name;
     }
 
-    @Override
-    public Classification recognize( float[] input) {
+
+    public float[] recognize( float[] input) {
 
 
         float[][] labelProb = new float[1][labels.size()];
 
         tfLite.run(input, labelProb);
 
+        return labelProb[0];
 
-        // Post-processing
-        Classification ans = new Classification();
-        int max_i = 0;
-        float max_p = -1.0F;
-        for (int i = 0; i < labels.size(); ++i) {
-            if (labelProb[0][i] > max_p) {
-                max_i = i;
-                max_p = labelProb[0][i];
-            }
-        }
 
-        ans.update(max_p, labels.get(max_i));
-        return ans;
+//        // Post-processing
+//        Classification ans = new Classification();
+//        int max_i = 0;
+//        float max_p = -1.0F;
+//        for (int i = 0; i < labels.size(); ++i) {
+//            if (labelProb[0][i] > max_p) {
+//                max_i = i;
+//                max_p = labelProb[0][i];
+//            }
+//        }
+//
+//        ans.update(max_p, labels.get(max_i));
+//        return ans;
     }
 
     // memory-map the model file in assets

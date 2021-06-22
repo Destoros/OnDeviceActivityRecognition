@@ -1,5 +1,6 @@
 package org.tensorflow.lite.examples.transfer;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
@@ -12,12 +13,14 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.tensorflow.lite.Interpreter;
 import org.tensorflow.lite.examples.transfer.api.TransferLearningModel.Prediction;
+import org.tensorflow.lite.examples.transfer.models.Classification;
 import org.tensorflow.lite.examples.transfer.models.TensorFlowLiteClassifier;
 
 import java.io.File;
@@ -63,8 +66,8 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
     AssetManager mAssetManager; //the asset manager allows me access to the asset folder (ProjectName/app/src/main/asset in project view and app/assets ind android view)
 
     TransferLearningModelWrapper tlModel; //transfer learning model class which uses the .tflite files
-    TransferLearningModelWrapper tlModelGeneric; //can be delete in the future
     Interpreter genericModel;
+//    TensorFlowLiteClassifier genericModel;
 
     kNN kNNModel;
 
@@ -82,7 +85,7 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
     float textSize = 20;
     float startVal = 0.0f;
 
-
+    GridLayout gridLayout;
 
 
     @SuppressLint("SetTextI18n")
@@ -99,10 +102,10 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
         TextView tlLabel = new TextView(this);
 
 
-        GridLayout gridLayout = new GridLayout(this);
+        gridLayout = findViewById(R.id.PreTrainedDataGridLayout);
         gridLayout.setColumnCount(4);
         gridLayout.setPadding(paddingGridLayout,paddingGridLayout,paddingGridLayout,paddingGridLayout);
-        setContentView(gridLayout);
+
 
 
         kNNLabel.setTextSize(textSize);
@@ -173,7 +176,6 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
         kNNModel = new kNN(null);
 
         tlModel = new TransferLearningModelWrapper(getApplicationContext());
-        tlModelGeneric = new TransferLearningModelWrapper(getApplicationContext());
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
@@ -235,10 +237,11 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
 
 //        // load generic model
 //        try {
-//            myGenericModel = TensorFlowLiteClassifier.create(getAssets(), "GenericModel","converted_model.tflite", "labels.txt");
+//            genericModel = TensorFlowLiteClassifier.create(getAssets(), "GenericModel","converted_model.tflite", "labels.txt");
 //            genericModelLoaded = true;
 //            Toast.makeText(getApplicationContext(), "Generic model loaded", Toast.LENGTH_SHORT).show();
 //        } catch( final Exception e) {
+//            Toast.makeText(getApplicationContext(), "IO exception", Toast.LENGTH_SHORT).show();
 //            Toast.makeText(getApplicationContext(), "Error while loading generic model", Toast.LENGTH_SHORT).show();
 //        }
 
@@ -272,8 +275,6 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
         tlModel.close();
         tlModel = null;
         kNNModel = null;
-        tlModelGeneric.close();
-        tlModelGeneric = null;
         mSensorManager = null;
     }
 
@@ -351,10 +352,17 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
 
 
 
+            float[] input_clone = input.clone();
+            float[] maxValues = {Collections.max(x_accel), Collections.max(y_accel), Collections.max(z_accel)};
 
+            //I need to normalize the input to the generic model
+            for(i = 0; i < input_clone.length; i++) {
+                input_clone[i] = input_clone[i]/maxValues[i%3];
+            }
 
             float[][] output = new float[1][12]; //tflite library return a 1x12 float array
-            genericModel.run(input, output);
+//            Classification out = genericModel.recognize(input);
+            genericModel.run(input_clone, output);
 
             //still need to consider the classes
             //STAND_TO_SIT
@@ -437,6 +445,62 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
         }
 
         input_signal.clear();
+    }
+
+
+
+    public void saveAsPreTrainedDataBtn(View view) {
+
+        if(!useNewTrainedModel) {
+            Toast.makeText(getApplicationContext(), "You are already using the pre trained model", Toast.LENGTH_SHORT).show();
+        } else {
+
+            // Create the object of AlertDialog Builder class
+            AlertDialog.Builder builder = new AlertDialog.Builder(UsePreTrainedData.this);
+
+            // Set the message show for the Alert time
+            builder.setMessage("Are you sure you want to overwrite the old model?");
+
+            // Set Alert Title
+            builder.setTitle("Alert !");
+
+            // Set Cancelable false for when the user clicks on the outside the Dialog Box then it will remain show
+            builder.setCancelable(false);
+
+            // Set the positive button with yes name  OnClickListener method is use of DialogInterface interface.
+            builder.setPositiveButton("Yes",
+                    (dialog, which) -> {
+
+
+                        //save TL model
+                        File modelPath = getApplicationContext().getFilesDir();
+                        File modelFile = new File(modelPath, TL_PRE_TRAINED_MODEL_NAME);
+                        tlModel.saveModel(modelFile);
+
+                        //also save the kNN model
+                        kNNModel.saveFeatureMatrix(getFilesDir() + File.separator + KNN_PRE_TRAINED_MODEL_NAME);
+
+                        Toast.makeText(getApplicationContext(), "New Pre Trained Model saved.", Toast.LENGTH_SHORT).show();
+                        useNewTrainedModel = false;
+                        // Do something in response to button
+                        finish();
+                    });
+
+            // Set the Negative button with No name OnClickListener method is use of DialogInterface interface.
+            builder
+                    .setNegativeButton(
+                            "No",
+                            (dialog, which) -> {
+                                // If user click no then dialog box is canceled.
+                                dialog.cancel();
+                            });
+
+            // Create the Alert dialog
+            AlertDialog alertDialog = builder.create();
+
+            // Show the Alert Dialog box
+            alertDialog.show();
+        }
     }
 
     private float[] toFloatArray(List<Float> list)

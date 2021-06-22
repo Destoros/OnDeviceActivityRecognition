@@ -1069,6 +1069,7 @@ id CTRL
 id FUNCTION
 id META
 id MyGridLayout
+id PreTrainedDataGridLayout
 id SHIFT
 id SYM
 id accessibility_action_clickable_span
@@ -1138,7 +1139,6 @@ id button2
 id button3
 id button4
 id button5
-id button6
 id button7
 id buttonPanel
 id center
@@ -1214,6 +1214,7 @@ id mini
 id mtrl_child_content_container
 id mtrl_internal_children_alpha_tag
 id multiply
+id myBtn
 id navigation_header_container
 id never
 id none
@@ -1296,7 +1297,6 @@ id text2
 id textSpacerNoButtons
 id textSpacerNoTitle
 id textStart
-id textView
 id textView12
 id textView13
 id textView15
@@ -1426,6 +1426,7 @@ string BtnCreateConfusionMatrix
 string BtnLastTrainedModel
 string BtnLoadLastConfMatrix
 string BtnPreTrainedModel
+string BtnSaveNewTrainedModelPreTrainedModel
 string BtnStartCollectingData
 string BtnStartTraining
 string BtnStopCollectingData

@@ -14,7 +14,7 @@
         android:minHeight="40dp" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/myBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="5dp"
