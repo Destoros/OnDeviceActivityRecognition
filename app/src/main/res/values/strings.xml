@@ -4,10 +4,10 @@
 
     <!-- Main Activity -->
     <string name="logo_title">On-Device Activity Recognizer</string>
-    <string name="title_screen_option_text">You can either train a new model or use an already trained model. If you use this app for the first time there is no pre trained model and the kNN and TL model will behave randomly.</string>
+    <string name="title_screen_option_text"> In Collect Example Data you can collect raw acceleration data which will be saved on the phone and can be used to train a model. You can either train a new model or use an already trained model. If you use this app for the first time there is no pre trained model and the kNN and TL model will behave randomly.</string>
     <string name="BtnPreTrainedModel">Use a pre trained model</string>
     <string name="BtnTrainNewModel">Train a new model</string>
-    <string name="title_screen_option_text_2">You can also create a confusion matrix for the pre trained model or load the last model which was trained in "Train a New Model" and did not overwrite the pre trained model. In Collect Example Data you can collect raw acceleration data which will be saved on the phone and can be used to train a model again and again.</string>
+    <string name="title_screen_option_text_2">You can also create a confusion matrix for the pre trained model or load the last model which was trained in "Train a New Model" and did not overwrite the pre trained model.</string>
     <string name="BtnCreateConfusionMatrix">Create Confusion Matrix</string>
     <string name="BtnLastTrainedModel">Use last trained model</string>
     <string name="BtnCollectExampleData">Collect Example Data</string>

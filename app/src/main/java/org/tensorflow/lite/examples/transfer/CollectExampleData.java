@@ -228,7 +228,7 @@ public class CollectExampleData extends AppCompatActivity implements SensorEvent
 
                 for (String activity : ALL_ACTIVITIES_NAMES) {
                     try {
-                        accelerationValues.get(activity).writeMeasurementsToFile(getFilesDir() + File.separator);
+                        accelerationValues.get(activity).writeMeasurementsToFile(getFilesDir() + File.separator, "Train");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -236,6 +236,7 @@ public class CollectExampleData extends AppCompatActivity implements SensorEvent
 
                 finish();
             });
+
 
             alertDialog.setNegativeButton("No", null);
 

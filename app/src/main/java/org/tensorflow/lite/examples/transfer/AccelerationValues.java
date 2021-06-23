@@ -131,13 +131,13 @@ public class AccelerationValues {
         return array;
     }
 
-    public void writeMeasurementsToFile(String assetsFolderDirectory) throws IOException {
+    public void writeMeasurementsToFile(String assetsFolderDirectory, String prefix) throws IOException {
 
         if (someDataCollected()) {
                                                                                          //assetsFolderDirectory = getFilesDir() + File.separator
-            DataOutputStream fOutStreamX = new DataOutputStream(new FileOutputStream(assetsFolderDirectory + ACTIVITY_NAME + ".x"));
-            DataOutputStream fOutStreamY = new DataOutputStream(new FileOutputStream(assetsFolderDirectory + ACTIVITY_NAME + ".y"));
-            DataOutputStream fOutStreamZ = new DataOutputStream(new FileOutputStream(assetsFolderDirectory + ACTIVITY_NAME + ".z"));
+            DataOutputStream fOutStreamX = new DataOutputStream(new FileOutputStream(assetsFolderDirectory + prefix + ACTIVITY_NAME + ".x"));
+            DataOutputStream fOutStreamY = new DataOutputStream(new FileOutputStream(assetsFolderDirectory + prefix + ACTIVITY_NAME + ".y"));
+            DataOutputStream fOutStreamZ = new DataOutputStream(new FileOutputStream(assetsFolderDirectory + prefix + ACTIVITY_NAME + ".z"));
 
             for (int i = 0; i < this.x_accel.size(); i++) {
                 fOutStreamX.writeFloat(this.x_accel.get(i));
@@ -155,11 +155,11 @@ public class AccelerationValues {
 
 
 
-    public void readMeasurementsFromFile(String assetsFolderDirectory) throws IOException {
+    public void readMeasurementsFromFile(String assetsFolderDirectory, String prefix) throws IOException {
                                                                                   //assetsFolderDirectory = getFilesDir() + File.separator
-        DataInputStream fInpStreamX = new DataInputStream(new FileInputStream(assetsFolderDirectory + ACTIVITY_NAME + ".x"));
-        DataInputStream fInpStreamY = new DataInputStream(new FileInputStream(assetsFolderDirectory + ACTIVITY_NAME + ".y"));
-        DataInputStream fInpStreamZ = new DataInputStream(new FileInputStream(assetsFolderDirectory + ACTIVITY_NAME + ".z"));
+        DataInputStream fInpStreamX = new DataInputStream(new FileInputStream(assetsFolderDirectory + prefix + ACTIVITY_NAME + ".x"));
+        DataInputStream fInpStreamY = new DataInputStream(new FileInputStream(assetsFolderDirectory + prefix + ACTIVITY_NAME + ".y"));
+        DataInputStream fInpStreamZ = new DataInputStream(new FileInputStream(assetsFolderDirectory + prefix + ACTIVITY_NAME + ".z"));
 
         while (fInpStreamX.available() > 0) {
             this.x_accel.add(fInpStreamX.readFloat());

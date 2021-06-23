@@ -30,8 +30,6 @@ import java.util.List;
 
 
 
-
-
 public class TrainNewModel extends AppCompatActivity {
 
 
@@ -81,7 +79,7 @@ public class TrainNewModel extends AppCompatActivity {
             accelerationValues.put(activityName, new AccelerationValues(activityName));
 
             try {
-                accelerationValues.get(activityName).readMeasurementsFromFile(getFilesDir() + File.separator);
+                accelerationValues.get(activityName).readMeasurementsFromFile(getFilesDir() + File.separator, "Train");
 
             } catch( IOException e) {
                 accelerationValuesLoaded = false; //if one fails, this boolean should be false
@@ -93,6 +91,7 @@ public class TrainNewModel extends AppCompatActivity {
         tlModel = new TransferLearningModelWrapper(getApplicationContext());
         myKNN = new kNN(new ArrayList<>(Arrays.asList(ALL_ACTIVITIES_NAMES)));
 
+        //train kNN and TF model
         if(accelerationValuesLoaded) {
             updateInstanceCounter();
             Toast.makeText(getApplicationContext(), "Raw acceleration data successfully loaded.", Toast.LENGTH_LONG).show();
@@ -179,32 +178,35 @@ public class TrainNewModel extends AppCompatActivity {
      */
     public void startTraining(View view) {
 
-        //first check fi the instance counter has more than batchSIze entries for each activity
-        int batchSize = tlModel.getTrainBatchSize();
-        boolean enoughInstances = true;
+        if(accelerationValuesLoaded) {
 
-        for (String activity : ALL_ACTIVITIES_NAMES ) {
-            if ( accelerationValues.get(activity).availableFrames() < batchSize) {
-                String message = batchSize + " instances per class are required for training.";
-                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-                enoughInstances = false;
+            //first check fi the instance counter has more than batchSIze entries for each activity
+            int batchSize = tlModel.getTrainBatchSize();
+            boolean enoughInstances = true;
+
+            for (String activity : ALL_ACTIVITIES_NAMES) {
+                if (accelerationValues.get(activity).availableFrames() < batchSize) {
+                    String message = batchSize + " instances per class are required for training.";
+                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                    enoughInstances = false;
+                }
             }
-        }
 
 
-        if(enoughInstances) {
-            if(!startTrainingButtonPressed) {
-                someTrainingWasDone = true;
-                startTrainingButtonPressed = true;
-                startTrainingButton.setText(R.string.BtnStopTraining);
+            if (enoughInstances) {
+                if (!startTrainingButtonPressed) {
+                    someTrainingWasDone = true;
+                    startTrainingButtonPressed = true;
+                    startTrainingButton.setText(R.string.BtnStopTraining);
 
-                tlModel.enableTraining((epoch, loss) -> runOnUiThread(() -> {
-                    lossTextView.setText(String.format(getResources().getString(R.string.Loss), loss));
-                }));
-            } else {
-                tlModel.disableTraining();
-                startTrainingButtonPressed = false;
-                startTrainingButton.setText(R.string.BtnStartTraining);
+                    tlModel.enableTraining((epoch, loss) -> runOnUiThread(() -> {
+                        lossTextView.setText(String.format(getResources().getString(R.string.Loss), loss));
+                    }));
+                } else {
+                    tlModel.disableTraining();
+                    startTrainingButtonPressed = false;
+                    startTrainingButton.setText(R.string.BtnStartTraining);
+                }
             }
         }
     }

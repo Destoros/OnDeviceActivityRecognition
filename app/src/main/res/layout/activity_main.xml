@@ -26,6 +26,16 @@
         android:text="@string/title_screen_option_text" />
 
     <Button
+        android:id="@+id/button8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/buttonBackground"
+        android:minHeight="60dip"
+        android:onClick="collectData"
+        android:text="@string/BtnCollectExampleData" />
+
+    <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,11 +44,17 @@
         android:onClick="trainNewModel"
         android:text="@string/BtnTrainNewModel" />
 
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/OR" />
+
     <Button
         android:id="@+id/button3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:backgroundTint="@color/buttonBackground"
         android:minHeight="60dip"
         android:onClick="usePreTrainedModel"
@@ -75,16 +91,6 @@
             android:minHeight="60dip"
             android:onClick="LastTrainedModel"
             android:text="@string/BtnLastTrainedModel" />
-
-        <Button
-            android:id="@+id/button8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="@color/buttonBackground"
-            android:minHeight="60dip"
-            android:onClick="collectData"
-            android:text="@string/BtnCollectExampleData" />
 
     </LinearLayout>
 </LinearLayout>
