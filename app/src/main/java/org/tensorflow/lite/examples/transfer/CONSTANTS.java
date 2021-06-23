@@ -18,5 +18,8 @@ public class CONSTANTS {
     public static final String KNN_TOKEN = "KNN_TOKEN";
     public static final String TL_MODEL_NAME = "TL_model";
     public static final String KNN_MODEL_NAME = "kNN_model";
+    public static final String FROM_MAIN_ACTIVITY = "main_activity";
+    public static final String PREFIX_CONFUSION_MATRIX_FILE_NAME = "confusion";
+    public static final String PREFIX_TRAINING_FILE_NAME = "train";
 
 }

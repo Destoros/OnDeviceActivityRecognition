@@ -1,6 +1,7 @@
 package org.tensorflow.lite.examples.transfer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -26,6 +27,7 @@ public class CollectExampleData extends AppCompatActivity implements SensorEvent
 
 
     public static final String[] ALL_ACTIVITIES_NAMES = CONSTANTS.ALL_ACTIVITIES_NAMES;
+    String prefixFileName;
 
     String selectedActivity;
     String storedSelectedActivity;
@@ -46,10 +48,17 @@ public class CollectExampleData extends AppCompatActivity implements SensorEvent
 
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collect_data);
+
+        Intent intent = getIntent();
+        prefixFileName = intent.getStringExtra(CONSTANTS.FROM_MAIN_ACTIVITY);
+
+
 
         someDataCollected = false;
         collectDataButtonPressed = false;
@@ -228,7 +237,7 @@ public class CollectExampleData extends AppCompatActivity implements SensorEvent
 
                 for (String activity : ALL_ACTIVITIES_NAMES) {
                     try {
-                        accelerationValues.get(activity).writeMeasurementsToFile(getFilesDir() + File.separator, "Train");
+                        accelerationValues.get(activity).writeMeasurementsToFile(getFilesDir() + File.separator, prefixFileName);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

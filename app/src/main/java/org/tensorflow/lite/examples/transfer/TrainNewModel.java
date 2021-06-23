@@ -36,6 +36,7 @@ public class TrainNewModel extends AppCompatActivity {
 
     public static final String[] ALL_ACTIVITIES_NAMES = CONSTANTS.ALL_ACTIVITIES_NAMES;
     public static final int N_ACTIVITIES = ALL_ACTIVITIES_NAMES.length;
+    String prefixFileName = CONSTANTS.PREFIX_TRAINING_FILE_NAME;
 
 
     boolean startTrainingButtonPressed;
@@ -79,7 +80,7 @@ public class TrainNewModel extends AppCompatActivity {
             accelerationValues.put(activityName, new AccelerationValues(activityName));
 
             try {
-                accelerationValues.get(activityName).readMeasurementsFromFile(getFilesDir() + File.separator, "Train");
+                accelerationValues.get(activityName).readMeasurementsFromFile(getFilesDir() + File.separator, prefixFileName);
 
             } catch( IOException e) {
                 accelerationValuesLoaded = false; //if one fails, this boolean should be false

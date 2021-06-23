@@ -33,7 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
   public void CreateConfusionMatrix(View view) {
     // Do something in response to button
-    Intent intent = new Intent(MainActivity.this, CreateConfusionMatrix.class);
+    Intent intent = new Intent(MainActivity.this, CollectExampleData.class);
+    intent.putExtra(CONSTANTS.FROM_MAIN_ACTIVITY, CONSTANTS.PREFIX_CONFUSION_MATRIX_FILE_NAME);
     startActivity(intent);
   }
 
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
   public void collectData(View view) {
     Intent intent = new Intent(MainActivity.this, CollectExampleData.class); //CollectData
+    intent.putExtra(CONSTANTS.FROM_MAIN_ACTIVITY, CONSTANTS.PREFIX_TRAINING_FILE_NAME);
     startActivity(intent);
   }
 

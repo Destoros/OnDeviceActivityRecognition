@@ -27,7 +27,7 @@ public class AccelerationValues {
     final static int SENSOR_FREQUENCY  = 1000000/CONSTANTS.MY_SENSOR_DELAY;
     final static int STEP_DISTANCE = CONSTANTS.STEP_DISTANCE;
 
-
+    String prefixFileName;
 
 
     public AccelerationValues(String activityName) {
