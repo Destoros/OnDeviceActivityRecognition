@@ -53,7 +53,7 @@ public class TransferLearningModelWrapper implements Closeable {
   public static List<String> listClasses = Arrays.asList("Walking", "Upstairs", "Downstairs", "Sitting",
           "Standing", "Laying", "Running"); //this list has to follow the same as string-array in strings.xml!
 
-
+    //maybe R.array.class_array works
   TransferLearningModelWrapper(Context context) {
 
 

@@ -50,8 +50,8 @@
         android:layout_weight="0"
         android:backgroundTint="@color/buttonBackground"
         android:minHeight="64dip"
-        android:onClick="startCollectingData"
-        android:text="@string/BtnStartCollectingData" />
+        android:onClick="collectData"
+        android:text="@string/BtnCollectData" />
 
     <TextView
         android:id="@+id/textView19"

@@ -40,13 +40,13 @@ public class MainActivity extends AppCompatActivity {
   public void LastTrainedModel(View view) {
     // Do something in response to button
     Intent intent = new Intent(MainActivity.this, UsePreTrainedData.class);
-    intent.putExtra(TrainNewModel.TL_TOKEN, TrainNewModel.TL_MODEL_NAME);
-    intent.putExtra(TrainNewModel.KNN_TOKEN, TrainNewModel.KNN_MODEL_NAME);
+    intent.putExtra(CONSTANTS.TL_TOKEN, CONSTANTS.TL_MODEL_NAME);
+    intent.putExtra(CONSTANTS.KNN_TOKEN, CONSTANTS.KNN_MODEL_NAME);
     startActivity(intent);
   }
 
   public void collectData(View view) {
-    Intent intent = new Intent(MainActivity.this, CollectData.class);
+    Intent intent = new Intent(MainActivity.this, CollectExampleData.class); //CollectData
     startActivity(intent);
   }
 

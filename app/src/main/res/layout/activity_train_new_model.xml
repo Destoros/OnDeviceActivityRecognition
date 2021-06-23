@@ -10,12 +10,12 @@
 
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:fontFamily="sans-serif"
-        android:text="@string/EnterActivityText"
+        android:layout_marginBottom="6sp"
+        android:layout_weight="0"
+        android:text="@string/TextLoadExampleData"
         android:textSize="18sp" />
 
     <androidx.cardview.widget.CardView
@@ -23,63 +23,17 @@
         android:layout_height="wrap_content"
         android:layout_weight="0"
         app:cardBackgroundColor="@color/buttonBackground"
-        app:cardCornerRadius="4dp">
-
-        <Spinner
-            android:id="@+id/change_class_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:clickable="true"
-            android:popupBackground="@color/buttonBackground" />
-    </androidx.cardview.widget.CardView>
+        app:cardCornerRadius="4dp"/>
 
     <TextView
-        android:id="@+id/textView17"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
-        android:fontFamily="sans-serif"
-        android:text="@string/StartCollectingData"
-        android:textSize="18sp" />
-
-    <Button
-        android:id="@+id/collectingDataButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:backgroundTint="@color/buttonBackground"
-        android:minHeight="64dip"
-        android:onClick="startCollectingData"
-        android:text="@string/BtnStartCollectingData" />
-
-    <TextView
-        android:id="@+id/textView19"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:text="@string/InstanceText"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/instancesTextView"
+        android:id="@+id/instancesTextView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="12dp"
         android:layout_weight="0"
         android:gravity="center"
-        android:text="[ ]"
+        android:text="@string/EmptyInstanceText"
         android:textSize="16sp" />
-
-    <Button
-        android:id="@+id/collectingDataButton3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:backgroundTint="@color/buttonBackground"
-        android:minHeight="20dip"
-        android:onClick="loadCollectedExampleData"
-        android:text="@string/LoadCollectedData" />
 
     <TextView
         android:id="@+id/textView20"

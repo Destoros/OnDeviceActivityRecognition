@@ -37,9 +37,9 @@ import java.util.stream.Stream;
 
 public class CreateConfusionMatrix extends AppCompatActivity implements SensorEventListener,AdapterView.OnItemSelectedListener{
 
-    public static final int NUM_SAMPLES = TrainNewModel.NUM_SAMPLES; //samples per frame
-    public static int MY_SENSOR_DELAY = TrainNewModel.MY_SENSOR_DELAY; //20 000us = 0.02s  = 50 Hz
-    public static final int PREDICT_AFTER_N_NEW_SAMPLES = TrainNewModel.PREDICT_AFTER_N_NEW_SAMPLES; //fill the accelerometer arrays with the initial amount of samples of 200; after that don't delete all the old values,
+    public static final int NUM_SAMPLES = CONSTANTS.NUM_SAMPLES; //samples per frame
+    public static int MY_SENSOR_DELAY = CONSTANTS.MY_SENSOR_DELAY; //20 000us = 0.02s  = 50 Hz
+    public static final int PREDICT_AFTER_N_NEW_SAMPLES = CONSTANTS.STEP_DISTANCE; //fill the accelerometer arrays with the initial amount of samples of 200; after that don't delete all the old values,
     // just delete 10 samples and and wait until the accelerometer sensor delivers 10 new Samples; then predict the activity again. (200 is the number of NUM_SAMPLES
     // 10 is the number of PREDICT_AFTER_N_NEW_SAMPLES)
     // PREDICT_AFTER_N_NEW_SAMPLES = 0 removes all 200 samples and waits until the list is fully filled again
@@ -60,9 +60,9 @@ public class CreateConfusionMatrix extends AppCompatActivity implements SensorEv
     boolean collectingDataButtonPressed = false;
     boolean someDataCollected = false;
 
-    static List<Float> x_accel;
-    static List<Float> y_accel;
-    static List<Float> z_accel;
+    static ArrayList<Float> x_accel;
+    static ArrayList<Float> y_accel;
+    static ArrayList<Float> z_accel;
 
     static ArrayList<Float> input_signal;
     static ArrayList<ArrayList<Float>> collectedData;
@@ -140,8 +140,8 @@ public class CreateConfusionMatrix extends AppCompatActivity implements SensorEv
         tlModel = new TransferLearningModelWrapper(getApplicationContext());
         tlModelGeneric = new TransferLearningModelWrapper(getApplicationContext());
 
-        String fileNameKNN = TrainNewModel.KNN_PRE_TRAINED_MODEL_NAME;
-        String fileNameTL = TrainNewModel.TL_PRE_TRAINED_MODEL_NAME;
+        String fileNameKNN = CONSTANTS.KNN_PRE_TRAINED_MODEL_NAME;
+        String fileNameTL = CONSTANTS.TL_PRE_TRAINED_MODEL_NAME;
 
         //load kNN model
         File modelPath = getApplicationContext().getFilesDir();
@@ -265,7 +265,7 @@ public class CreateConfusionMatrix extends AppCompatActivity implements SensorEv
                 handler.removeCallbacksAndMessages(null);
                 collectingDataButtonPressed = false;
                 mSensorManager.unregisterListener(this);
-                collectingDataButton.setText(R.string.BtnStartCollectingData);
+                collectingDataButton.setText(R.string.BtnCollectData);
                 x_accel.clear();
                 y_accel.clear();
                 z_accel.clear();

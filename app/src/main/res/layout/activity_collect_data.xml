@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="12dp"
-    tools:context=".CollectData">
+    tools:context=".CollectExampleData">
 
 
     <TextView
@@ -50,8 +50,8 @@
         android:layout_weight="0"
         android:backgroundTint="@color/buttonBackground"
         android:minHeight="64dip"
-        android:onClick="startCollectingData"
-        android:text="@string/BtnStartCollectingData" />
+        android:onClick="collectData"
+        android:text="@string/BtnCollectData" />
 
     <TextView
         android:id="@+id/textView19"
@@ -68,7 +68,7 @@
         android:layout_marginVertical="12dp"
         android:layout_weight="0"
         android:gravity="center"
-        android:text="[ ]"
+        android:text="@string/EmptyInstanceText"
         android:textSize="16sp" />
 
     <TextView
@@ -76,5 +76,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/InfoForCollectingData" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:text="@string/SaveExampleDataText" />
+
+        <Button
+            android:id="@+id/collectingDataButton2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/buttonBackground"
+            android:minHeight="64dip"
+            android:onClick="saveExampleData"
+            android:text="@string/SaveExampleDataBtn" />
+
+    </LinearLayout>
 
 </LinearLayout>

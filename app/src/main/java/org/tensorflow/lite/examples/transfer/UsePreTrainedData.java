@@ -31,19 +31,19 @@ import java.util.Locale;
 
 public class UsePreTrainedData extends AppCompatActivity implements SensorEventListener {
 
-    final int NUM_SAMPLES = TrainNewModel.NUM_SAMPLES; //samples per frame
-    public static int MY_SENSOR_DELAY = TrainNewModel.MY_SENSOR_DELAY;
-    public static final int PREDICT_AFTER_N_NEW_SAMPLES = TrainNewModel.PREDICT_AFTER_N_NEW_SAMPLES;
+    final int NUM_SAMPLES = CONSTANTS.NUM_SAMPLES; //samples per frame
+    public static int MY_SENSOR_DELAY = CONSTANTS.MY_SENSOR_DELAY;
+    public static final int PREDICT_AFTER_N_NEW_SAMPLES = CONSTANTS.STEP_DISTANCE;
 
     //to change the activities one has to change the string-array in the strings.xml file and the list in the TransferLearningModelWrapper.java
     public static final String[] ALL_ACTIVITIES_NAMES = TransferLearningModelWrapper.listClasses.toArray(new String[0]);
     public static final int N_ACTIVITIES = ALL_ACTIVITIES_NAMES.length;
 
-    public static final String KNN_TOKEN = TrainNewModel.KNN_TOKEN;
-    public static final String KNN_PRE_TRAINED_MODEL_NAME = TrainNewModel.KNN_PRE_TRAINED_MODEL_NAME;
+    public static final String KNN_TOKEN = CONSTANTS.KNN_TOKEN;
+    public static final String KNN_PRE_TRAINED_MODEL_NAME = CONSTANTS.KNN_PRE_TRAINED_MODEL_NAME;
 
-    public static final String TL_TOKEN = TrainNewModel.TL_TOKEN;
-    public static final String TL_PRE_TRAINED_MODEL_NAME = TrainNewModel.TL_PRE_TRAINED_MODEL_NAME;
+    public static final String TL_TOKEN = CONSTANTS.TL_TOKEN;
+    public static final String TL_PRE_TRAINED_MODEL_NAME = CONSTANTS.TL_PRE_TRAINED_MODEL_NAME;
 
     static int k_nearest_neighbours_max = 51; //numbers of neighbours to consider for kNN
 
@@ -52,9 +52,9 @@ public class UsePreTrainedData extends AppCompatActivity implements SensorEventL
     boolean kNNModelLoaded = false;
     boolean genericModelLoaded = false;
 
-    static List<Float> x_accel;
-    static List<Float> y_accel;
-    static List<Float> z_accel;
+    static ArrayList<Float> x_accel;
+    static ArrayList<Float> y_accel;
+    static ArrayList<Float> z_accel;
 
     static List<Float> input_signal;
 

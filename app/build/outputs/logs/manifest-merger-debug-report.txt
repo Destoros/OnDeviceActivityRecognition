@@ -114,10 +114,10 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\Ha
 		ADDED from C:\Users\Hannes\Desktop\OnDeviceActivityRecogApp\app\src\main\AndroidManifest.xml:16:9-35
 	android:theme
 		ADDED from C:\Users\Hannes\Desktop\OnDeviceActivityRecogApp\app\src\main\AndroidManifest.xml:20:9-40
-activity#org.tensorflow.lite.examples.transfer.CollectData
-ADDED from C:\Users\Hannes\Desktop\OnDeviceActivityRecogApp\app\src\main\AndroidManifest.xml:21:9-58
+activity#org.tensorflow.lite.examples.transfer.CollectExampleData
+ADDED from C:\Users\Hannes\Desktop\OnDeviceActivityRecogApp\app\src\main\AndroidManifest.xml:21:9-56
 	android:name
-		ADDED from C:\Users\Hannes\Desktop\OnDeviceActivityRecogApp\app\src\main\AndroidManifest.xml:21:19-46
+		ADDED from C:\Users\Hannes\Desktop\OnDeviceActivityRecogApp\app\src\main\AndroidManifest.xml:21:19-53
 activity#org.tensorflow.lite.examples.transfer.ShowConfusionMatrix
 ADDED from C:\Users\Hannes\Desktop\OnDeviceActivityRecogApp\app\src\main\AndroidManifest.xml:22:9-57
 	android:name

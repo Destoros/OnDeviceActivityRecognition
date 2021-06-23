@@ -84,7 +84,7 @@
             android:backgroundTint="@color/buttonBackground"
             android:minHeight="60dip"
             android:onClick="collectData"
-            android:text="@string/MainActivityCollectData" />
+            android:text="@string/BtnCollectExampleData" />
 
     </LinearLayout>
 </LinearLayout>

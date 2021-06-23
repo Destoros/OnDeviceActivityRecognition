@@ -38,7 +38,7 @@ public class kNN {
     }
 
 
-    public float[] predictClasses(List<Float> x_accel, List<Float> y_accel, List<Float> z_accel, int k) {
+    public float[] predictClasses(ArrayList<Float> x_accel, ArrayList<Float> y_accel, ArrayList<Float> z_accel, int k) {
 
 
         //k is the amount of neighbours to compare

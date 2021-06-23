@@ -28,7 +28,7 @@
         android:label="@string/app_name"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
-        <activity android:name="org.tensorflow.lite.examples.transfer.CollectData" />
+        <activity android:name="org.tensorflow.lite.examples.transfer.CollectExampleData" />
         <activity android:name="org.tensorflow.lite.examples.transfer.ShowConfusionMatrix" />
         <activity android:name="org.tensorflow.lite.examples.transfer.CreateConfusionMatrix" />
         <activity

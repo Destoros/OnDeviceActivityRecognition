@@ -1,63 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">Activity Recognition</string>
-  <string name="logo_title">On-Device Activity Recognizer</string>
-  <string name="title_screen_option_text">You can either train a new model or use an already trained model. If you use this app for the first time there is no pre trained model and the kNN and TL model will behave randomly.</string>
-  <string name="title_screen_option_text_2">You can also create a confusion matrix for the pre trained model or load the last model which was trained in "Train a New Model" and did not overwrite the pre trained model. In Collect Example Data you can collect raw acceleration data which will be saved on the phone and can be used to train a model again and again.</string>
+    <string name="app_name">Activity Recognition</string>
 
-  <string name="BtnPreTrainedModel">Use a pre trained model</string>
-  <string name="BtnTrainNewModel">Train a new model</string>
-  <string name="BtnLastTrainedModel">Use last trained model</string>
-  <string name="BtnStartCollectingData">Collect Data</string>
-  <string name="BtnStopCollectingData">Stop Collecting Data</string>
-  <string name="BtnStartTraining">Start Training</string>
-  <string name="BtnStopTraining">Stop Training</string>
-  <string name="SaveAsPreTrainedModel">Save As Pre Trained Model</string>
-  <string name="UseNewTrainedModel">Use New Trained Model</string>
-  <string name="BtnCreateConfusionMatrix">Create Confusion Matrix</string>
+    <!-- Main Activity -->
+    <string name="logo_title">On-Device Activity Recognizer</string>
+    <string name="title_screen_option_text">You can either train a new model or use an already trained model. If you use this app for the first time there is no pre trained model and the kNN and TL model will behave randomly.</string>
+    <string name="BtnPreTrainedModel">Use a pre trained model</string>
+    <string name="BtnTrainNewModel">Train a new model</string>
+    <string name="title_screen_option_text_2">You can also create a confusion matrix for the pre trained model or load the last model which was trained in "Train a New Model" and did not overwrite the pre trained model. In Collect Example Data you can collect raw acceleration data which will be saved on the phone and can be used to train a model again and again.</string>
+    <string name="BtnCreateConfusionMatrix">Create Confusion Matrix</string>
+    <string name="BtnLastTrainedModel">Use last trained model</string>
+    <string name="BtnCollectExampleData">Collect Example Data</string>
 
+    <!-- CollectData -->
+    <string name="EnterActivityText">1) Select the activity you want to record:</string>
+    <string name="StartCollectingData">2) Press the "Collect Data" Button. It starts after 3 seconds to give you some time to put the mobile phone at the correct spot.</string>
+    <string name="BtnCollectData">Collect Data</string>
+    <string name="BtnStopCollectingData">Stop Collecting Data</string>
+    <string name="InstanceText">Every activity needs at least 5 instances. The array below depicts the number of instances for each activity and follows the same order as the dropdown menu.</string>
+    <string name="EmptyInstanceText">[ ]</string>
+    <string name="InfoForCollectingData">When the Stop Collecting Data button is pressed the last second of the recorded acceleration values will be deleted. This is because of the movement the user does when stopping the recording which is not related to the activity.</string>
+    <string name="SaveExampleDataText">Pressing the button below overwrites the old raw acceleration files if the instance counter for the activity is bigger than 0.</string>
+    <string name="SaveExampleDataBtn">Save Example Data</string>
 
-  <string name="EnterActivityText">1) Select the activity you want to record:</string>
-  <string name="StartCollectingData">2) Press the "Collect Data" Button. It starts after 3 seconds to give you some time to put the mobile phone at the correct spot.</string>
-
-  <string name="InstanceText">Every activity needs at least 5 instances. The array below depicts the number of instances for each activity and follows the same order as the dropdown menu.</string>
-  <string name="TrainingText">3) Press the button below to start the training.</string>
-
-  <string name="Loss">Loss: %.4f</string>
-
-  <string name="MissingFeatureMatrix">Feature Matrix could not be loaded</string>
-
-  <string name="zero_value">0.0</string>
-  <string name="OR">OR</string>
-
-  <string name="LoadCollectedData">Load Example Data</string>
-
-
-  <string name="instanceConfusionMatrix">The array below depicts how many instances you collected for each activity.</string>
-  <string name="CalculateConfusionMatrix">3) Press the button below to show the confusion matrix. The pre trained model will be used.</string>
-  <string name="BtnCalcConfusionMatrix">Show Confusion Matrix</string>
-  <string name="BtnLoadLastConfMatrix">Load Last Confusion Matrix</string>
-
-  <string name="ShowKNNMatrix"> Show kNN Confusion Matrix</string>
-  <string name="ShowGenericMatrix"> Show Generic Model Confusion Matrix</string>
-  <string name="ShowTLMatrix"> Show TL Model Confusion Matrix</string>
-
-  <string name="MainActivityCollectData">Collect Example Data</string>
-  <string name="InfoForCollectingData">When the Stop Collecting Data button is pressed the last second of the recorded acceleration values will be deleted. This is because of the movement the user does when stopping the recording which is not related to the activity. Expect lower instance counter values when loading the example data.</string>
-
-  <string name="BtnSaveNewTrainedModelPreTrainedModel">Save as Pre Trained Model</string>
-  <string name="explanationGenericModelRunning">The generic model has no activity running, but it has in between activities like STAND_TO_SIT or SIT_TO_LIE. The sum of all those in between activities is summed and displayed as the running activity.</string>
+    <!-- TrainNewModel -->
+    <string name="TextLoadExampleData">1) The data gets loaded and the instance counter below will update, when its fully loaded.</string>
+    <string name="TrainingText">2) Press the button below to start the training.</string>
+    <string name="BtnStartTraining">Start Training</string>
+    <string name="BtnStopTraining">Stop Training</string>
+    <string name="Loss">Loss: %.4f</string>
+    <string name="SaveAsPreTrainedModel">Save As Pre Trained Model</string>
+    <string name="OR">OR</string>
+    <string name="UseNewTrainedModel">Use New Trained Model</string>
 
 
-  <!-- IMPORTANT: THIS LIST HAS TO FOLLOW THE LIST IN TransferLearningModelWrapper.java, OTHERWISE THE PROGRAM WONT WORK PROPERLY-->
-  <string-array name="class_array">
-    <item>Walking</item>
-    <item>Upstairs</item>
-    <item>Downstairs</item>
-    <item>Sitting</item>
-    <item>Standing</item>
-    <item>Laying</item>
-    <item>Running</item>
-  </string-array>
+
+
+
+
+
+
+
+    <string name="MissingFeatureMatrix">Feature Matrix could not be loaded</string>
+
+
+
+
+
+
+
+    <string name="instanceConfusionMatrix">The array below depicts how many instances you collected for each activity.</string>
+    <string name="CalculateConfusionMatrix">3) Press the button below to show the confusion matrix. The pre trained model will be used.</string>
+    <string name="BtnCalcConfusionMatrix">Show Confusion Matrix</string>
+    <string name="BtnLoadLastConfMatrix">Load Last Confusion Matrix</string>
+
+    <string name="ShowKNNMatrix"> Show kNN Confusion Matrix</string>
+    <string name="ShowGenericMatrix"> Show Generic Model Confusion Matrix</string>
+    <string name="ShowTLMatrix"> Show TL Model Confusion Matrix</string>
+
+
+
+    <string name="BtnSaveNewTrainedModelPreTrainedModel">Save as Pre Trained Model</string>
+    <string name="explanationGenericModelRunning">The generic model has no activity running, but it has in between activities like STAND_TO_SIT or SIT_TO_LIE. The sum of all those in between activities is summed and displayed as the running activity.</string>
+
+
+    <!-- IMPORTANT: THIS LIST HAS TO FOLLOW THE LIST IN TransferLearningModelWrapper.java, OTHERWISE THE PROGRAM WONT WORK PROPERLY-->
+    <string-array name="class_array">
+        <item>Walking</item>
+        <item>Upstairs</item>
+        <item>Downstairs</item>
+        <item>Sitting</item>
+        <item>Standing</item>
+        <item>Laying</item>
+        <item>Running</item>
+    </string-array>
 
 </resources>

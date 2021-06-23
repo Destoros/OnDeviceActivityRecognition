@@ -47,9 +47,9 @@
 29        android:testOnly="true"
 30        android:theme="@style/AppTheme" >
 30-->C:\Users\Hannes\Desktop\OnDeviceActivityRecogApp\app\src\main\AndroidManifest.xml:20:9-40
-31        <activity android:name="org.tensorflow.lite.examples.transfer.CollectData" />
-31-->C:\Users\Hannes\Desktop\OnDeviceActivityRecogApp\app\src\main\AndroidManifest.xml:21:9-58
-31-->C:\Users\Hannes\Desktop\OnDeviceActivityRecogApp\app\src\main\AndroidManifest.xml:21:19-46
+31        <activity android:name="org.tensorflow.lite.examples.transfer.CollectExampleData" />
+31-->C:\Users\Hannes\Desktop\OnDeviceActivityRecogApp\app\src\main\AndroidManifest.xml:21:9-56
+31-->C:\Users\Hannes\Desktop\OnDeviceActivityRecogApp\app\src\main\AndroidManifest.xml:21:19-53
 32        <activity android:name="org.tensorflow.lite.examples.transfer.ShowConfusionMatrix" />
 32-->C:\Users\Hannes\Desktop\OnDeviceActivityRecogApp\app\src\main\AndroidManifest.xml:22:9-57
 32-->C:\Users\Hannes\Desktop\OnDeviceActivityRecogApp\app\src\main\AndroidManifest.xml:22:19-54
