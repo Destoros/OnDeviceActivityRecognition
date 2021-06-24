@@ -27,8 +27,6 @@ public class AccelerationValues {
     final static int SENSOR_FREQUENCY  = 1000000/CONSTANTS.MY_SENSOR_DELAY;
     final static int STEP_DISTANCE = CONSTANTS.STEP_DISTANCE;
 
-    String prefixFileName;
-
 
     public AccelerationValues(String activityName) {
         this.x_accel = new ArrayList<>();
@@ -134,6 +132,7 @@ public class AccelerationValues {
     public void writeMeasurementsToFile(String assetsFolderDirectory, String prefix) throws IOException {
 
         if (someDataCollected()) {
+            //in retrospective it would probably be better to store the x y and z values in order in one file and read them accordingly
                                                                                          //assetsFolderDirectory = getFilesDir() + File.separator
             DataOutputStream fOutStreamX = new DataOutputStream(new FileOutputStream(assetsFolderDirectory + prefix + ACTIVITY_NAME + ".x"));
             DataOutputStream fOutStreamY = new DataOutputStream(new FileOutputStream(assetsFolderDirectory + prefix + ACTIVITY_NAME + ".y"));
@@ -160,6 +159,8 @@ public class AccelerationValues {
         DataInputStream fInpStreamX = new DataInputStream(new FileInputStream(assetsFolderDirectory + prefix + ACTIVITY_NAME + ".x"));
         DataInputStream fInpStreamY = new DataInputStream(new FileInputStream(assetsFolderDirectory + prefix + ACTIVITY_NAME + ".y"));
         DataInputStream fInpStreamZ = new DataInputStream(new FileInputStream(assetsFolderDirectory + prefix + ACTIVITY_NAME + ".z"));
+
+
 
         while (fInpStreamX.available() > 0) {
             this.x_accel.add(fInpStreamX.readFloat());

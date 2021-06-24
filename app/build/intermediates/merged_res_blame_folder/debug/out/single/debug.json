@@ -1,38 +1,38 @@
 [
     {
-        "merged": "C:\\Users\\Hannes\\Desktop\\OnDeviceActivityRecogApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_main.xml.flat",
-        "source": "C:\\Users\\Hannes\\Desktop\\OnDeviceActivityRecogApp\\app\\src\\main\\res\\layout\\activity_main.xml"
+        "merged": "C:\\Users\\Hannes\\Desktop\\Uni\\Master\\4. Semester\\Mobile Computing\\OnDeviceActivityRecogApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_launcher.xml.flat",
+        "source": "C:\\Users\\Hannes\\Desktop\\Uni\\Master\\4. Semester\\Mobile Computing\\OnDeviceActivityRecogApp\\app\\src\\main\\res\\drawable\\ic_launcher.xml"
     },
     {
-        "merged": "C:\\Users\\Hannes\\Desktop\\OnDeviceActivityRecogApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_use_pre_trained_data.xml.flat",
-        "source": "C:\\Users\\Hannes\\Desktop\\OnDeviceActivityRecogApp\\app\\src\\main\\res\\layout\\activity_use_pre_trained_data.xml"
+        "merged": "C:\\Users\\Hannes\\Desktop\\Uni\\Master\\4. Semester\\Mobile Computing\\OnDeviceActivityRecogApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_collect_data.xml.flat",
+        "source": "C:\\Users\\Hannes\\Desktop\\Uni\\Master\\4. Semester\\Mobile Computing\\OnDeviceActivityRecogApp\\app\\src\\main\\res\\layout\\activity_collect_data.xml"
     },
     {
-        "merged": "C:\\Users\\Hannes\\Desktop\\OnDeviceActivityRecogApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_train_new_model.xml.flat",
-        "source": "C:\\Users\\Hannes\\Desktop\\OnDeviceActivityRecogApp\\app\\src\\main\\res\\layout\\activity_train_new_model.xml"
+        "merged": "C:\\Users\\Hannes\\Desktop\\Uni\\Master\\4. Semester\\Mobile Computing\\OnDeviceActivityRecogApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_show_confusion_matrix.xml.flat",
+        "source": "C:\\Users\\Hannes\\Desktop\\Uni\\Master\\4. Semester\\Mobile Computing\\OnDeviceActivityRecogApp\\app\\src\\main\\res\\layout\\activity_show_confusion_matrix.xml"
     },
     {
-        "merged": "C:\\Users\\Hannes\\Desktop\\OnDeviceActivityRecogApp\\app\\build\\intermediates\\res\\merged\\debug\\font_titillium_web.ttf.flat",
-        "source": "C:\\Users\\Hannes\\Desktop\\OnDeviceActivityRecogApp\\app\\src\\main\\res\\font\\titillium_web.ttf"
+        "merged": "C:\\Users\\Hannes\\Desktop\\Uni\\Master\\4. Semester\\Mobile Computing\\OnDeviceActivityRecogApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_create_confusion_matrix.xml.flat",
+        "source": "C:\\Users\\Hannes\\Desktop\\Uni\\Master\\4. Semester\\Mobile Computing\\OnDeviceActivityRecogApp\\app\\src\\main\\res\\layout\\activity_create_confusion_matrix.xml"
     },
     {
-        "merged": "C:\\Users\\Hannes\\Desktop\\OnDeviceActivityRecogApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_collect_data.xml.flat",
-        "source": "C:\\Users\\Hannes\\Desktop\\OnDeviceActivityRecogApp\\app\\src\\main\\res\\layout\\activity_collect_data.xml"
+        "merged": "C:\\Users\\Hannes\\Desktop\\Uni\\Master\\4. Semester\\Mobile Computing\\OnDeviceActivityRecogApp\\app\\build\\intermediates\\res\\merged\\debug\\font_titillium_web.ttf.flat",
+        "source": "C:\\Users\\Hannes\\Desktop\\Uni\\Master\\4. Semester\\Mobile Computing\\OnDeviceActivityRecogApp\\app\\src\\main\\res\\font\\titillium_web.ttf"
     },
     {
-        "merged": "C:\\Users\\Hannes\\Desktop\\OnDeviceActivityRecogApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_show_confusion_matrix.xml.flat",
-        "source": "C:\\Users\\Hannes\\Desktop\\OnDeviceActivityRecogApp\\app\\src\\main\\res\\layout\\activity_show_confusion_matrix.xml"
+        "merged": "C:\\Users\\Hannes\\Desktop\\Uni\\Master\\4. Semester\\Mobile Computing\\OnDeviceActivityRecogApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_train_new_model.xml.flat",
+        "source": "C:\\Users\\Hannes\\Desktop\\Uni\\Master\\4. Semester\\Mobile Computing\\OnDeviceActivityRecogApp\\app\\src\\main\\res\\layout\\activity_train_new_model.xml"
     },
     {
-        "merged": "C:\\Users\\Hannes\\Desktop\\OnDeviceActivityRecogApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_logo.xml.flat",
-        "source": "C:\\Users\\Hannes\\Desktop\\OnDeviceActivityRecogApp\\app\\src\\main\\res\\drawable\\ic_logo.xml"
+        "merged": "C:\\Users\\Hannes\\Desktop\\Uni\\Master\\4. Semester\\Mobile Computing\\OnDeviceActivityRecogApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_logo.xml.flat",
+        "source": "C:\\Users\\Hannes\\Desktop\\Uni\\Master\\4. Semester\\Mobile Computing\\OnDeviceActivityRecogApp\\app\\src\\main\\res\\drawable\\ic_logo.xml"
     },
     {
-        "merged": "C:\\Users\\Hannes\\Desktop\\OnDeviceActivityRecogApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_launcher.xml.flat",
-        "source": "C:\\Users\\Hannes\\Desktop\\OnDeviceActivityRecogApp\\app\\src\\main\\res\\drawable\\ic_launcher.xml"
+        "merged": "C:\\Users\\Hannes\\Desktop\\Uni\\Master\\4. Semester\\Mobile Computing\\OnDeviceActivityRecogApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_use_pre_trained_data.xml.flat",
+        "source": "C:\\Users\\Hannes\\Desktop\\Uni\\Master\\4. Semester\\Mobile Computing\\OnDeviceActivityRecogApp\\app\\src\\main\\res\\layout\\activity_use_pre_trained_data.xml"
     },
     {
-        "merged": "C:\\Users\\Hannes\\Desktop\\OnDeviceActivityRecogApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_create_confusion_matrix.xml.flat",
-        "source": "C:\\Users\\Hannes\\Desktop\\OnDeviceActivityRecogApp\\app\\src\\main\\res\\layout\\activity_create_confusion_matrix.xml"
+        "merged": "C:\\Users\\Hannes\\Desktop\\Uni\\Master\\4. Semester\\Mobile Computing\\OnDeviceActivityRecogApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\Hannes\\Desktop\\Uni\\Master\\4. Semester\\Mobile Computing\\OnDeviceActivityRecogApp\\app\\src\\main\\res\\layout\\activity_main.xml"
     }
 ]
