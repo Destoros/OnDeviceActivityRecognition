@@ -1154,7 +1154,6 @@ id clip_horizontal
 id clip_vertical
 id collapseActionView
 id collectingDataButton
-id collectingDataButton2
 id container
 id content
 id contentPanel
@@ -1199,6 +1198,7 @@ id image
 id info
 id instancesTextView
 id instancesTextView2
+id instancesTextView3
 id invisible
 id italic
 id item_touch_helper_previous_elevation
@@ -1244,6 +1244,7 @@ id right
 id right_icon
 id right_side
 id saveAsPreTrainedModelButton
+id saveDataButton
 id save_image_matrix
 id save_non_transition_alpha
 id save_scale_type
@@ -1301,6 +1302,8 @@ id textSpacerNoButtons
 id textSpacerNoTitle
 id textStart
 id textView
+id textView10
+id textView11
 id textView12
 id textView13
 id textView15
@@ -1313,6 +1316,7 @@ id textView4
 id textView5
 id textView6
 id textView7
+id textView9
 id textWatcher
 id text_input_password_toggle
 id textinput_counter
@@ -1436,6 +1440,7 @@ string BtnCollectExampleData
 string BtnCreateConfusionMatrix
 string BtnLastTrainedModel
 string BtnLoadLastConfMatrix
+string BtnLoadLastRecordedData
 string BtnPreTrainedModel
 string BtnSaveNewTrainedModelPreTrainedModel
 string BtnStartTraining
@@ -1458,6 +1463,7 @@ string ShowKNNMatrix
 string ShowTLMatrix
 string StartCollectingData
 string TextLoadExampleData
+string TextLoadLastConfusionMatrix
 string TrainingText
 string UseNewTrainedModel
 string abc_action_bar_home_description

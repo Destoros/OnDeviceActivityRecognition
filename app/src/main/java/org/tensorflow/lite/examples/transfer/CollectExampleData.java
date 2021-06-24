@@ -39,6 +39,8 @@ public class CollectExampleData extends AppCompatActivity implements SensorEvent
 
     TextView instancesTextView;
 
+    Button saveDataButton;
+
     Spinner classSpinner;
 
     Sensor mAccelerometer;
@@ -58,13 +60,19 @@ public class CollectExampleData extends AppCompatActivity implements SensorEvent
         Intent intent = getIntent();
         prefixFileName = intent.getStringExtra(CONSTANTS.FROM_MAIN_ACTIVITY);
 
-
+        selectedActivity = ALL_ACTIVITIES_NAMES[0];
+        storedSelectedActivity = ALL_ACTIVITIES_NAMES[0];
 
         someDataCollected = false;
         collectDataButtonPressed = false;
 
         instancesTextView = findViewById(R.id.instancesTextView);
         collectDataButton = findViewById(R.id.collectingDataButton);
+        saveDataButton = findViewById(R.id.saveDataButton);
+
+        if(prefixFileName.equals(CONSTANTS.PREFIX_CONFUSION_MATRIX_FILE_NAME)) {
+            saveDataButton.setText(R.string.BtnLoadLastRecordedData);
+        }
 
         //Spinner
         classSpinner = findViewById(R.id.change_class_spinner);
@@ -76,8 +84,7 @@ public class CollectExampleData extends AppCompatActivity implements SensorEvent
         // Apply the adapter to the spinner
         classSpinner.setAdapter(adapter);
         //select the first activity in the spinner
-        selectedActivity = ALL_ACTIVITIES_NAMES[0];
-        storedSelectedActivity = ALL_ACTIVITIES_NAMES[0];
+
 
         //prepare the sensors
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -133,6 +140,7 @@ public class CollectExampleData extends AppCompatActivity implements SensorEvent
             storedSelectedActivity = (String) parent.getItemAtPosition(pos);
         } else {
             selectedActivity = (String) parent.getItemAtPosition(pos);
+            storedSelectedActivity = (String) parent.getItemAtPosition(pos);
         }
     }
 
@@ -187,15 +195,26 @@ public class CollectExampleData extends AppCompatActivity implements SensorEvent
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[ ");
+        int sum = 0;
 
         for(String activity : ALL_ACTIVITIES_NAMES) {
 
+            sum += accelerationValues.get(activity).availableFrames();
             stringBuilder.append(accelerationValues.get(activity).availableFrames()).append("  ");
 
         }
         stringBuilder.append("]");
-
         instancesTextView.setText(stringBuilder);
+
+        if(prefixFileName.equals(CONSTANTS.PREFIX_CONFUSION_MATRIX_FILE_NAME)) {
+            if(sum == 0) {
+                saveDataButton.setText(R.string.BtnLoadLastRecordedData);
+            } else {
+                saveDataButton.setText(R.string.SaveExampleDataBtn);
+            }
+
+        }
+
     }
 
     @Override
@@ -215,7 +234,7 @@ public class CollectExampleData extends AppCompatActivity implements SensorEvent
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(
                         CollectExampleData.this);
 
-                alertDialog.setPositiveButton("Yes", (dialog, which) -> { finish();  } );
+                alertDialog.setPositiveButton("Yes", (dialog, which) -> finish());
 
                 alertDialog.setNegativeButton("No", null);
 
@@ -230,27 +249,48 @@ public class CollectExampleData extends AppCompatActivity implements SensorEvent
     public void saveExampleData(View view) {
 
         if (!collectDataButtonPressed) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(
-                    CollectExampleData.this);
 
-            alertDialog.setPositiveButton("Yes", (dialog, which) -> {
-
-                for (String activity : ALL_ACTIVITIES_NAMES) {
-                    try {
-                        accelerationValues.get(activity).writeMeasurementsToFile(getFilesDir() + File.separator, prefixFileName);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+            for(String activity : ALL_ACTIVITIES_NAMES) {
+                if(accelerationValues.get(activity).someDataCollected()) {
+                    someDataCollected = true;
                 }
+            }
 
+            if (someDataCollected) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(
+                        CollectExampleData.this);
+
+                alertDialog.setPositiveButton("Yes", (dialog, which) -> {
+
+                    for (String activity : ALL_ACTIVITIES_NAMES) {
+                        try {
+                            accelerationValues.get(activity).writeMeasurementsToFile(getFilesDir() + File.separator, prefixFileName);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    if (prefixFileName.equals(CONSTANTS.PREFIX_CONFUSION_MATRIX_FILE_NAME)) {
+                        Intent intent = new Intent(CollectExampleData.this, CreateConfusionMatrix.class);
+                        startActivity(intent);
+                    }
+
+
+                    finish();
+                });
+
+
+                alertDialog.setNegativeButton("No", null);
+
+                alertDialog.setMessage("Are you sure?");
+                alertDialog.show();
+            } else {
+                if (prefixFileName.equals(CONSTANTS.PREFIX_CONFUSION_MATRIX_FILE_NAME)) {
+                    Intent intent = new Intent(CollectExampleData.this, CreateConfusionMatrix.class);
+                    startActivity(intent);
+                }
                 finish();
-            });
-
-
-            alertDialog.setNegativeButton("No", null);
-
-            alertDialog.setMessage("Are you sure?");
-            alertDialog.show();
+            }
         }
     }
 

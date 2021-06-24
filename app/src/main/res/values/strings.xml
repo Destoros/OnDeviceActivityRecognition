@@ -24,7 +24,7 @@
     <string name="SaveExampleDataBtn">Save Example Data</string>
 
     <!-- TrainNewModel -->
-    <string name="TextLoadExampleData">1) The data gets loaded and the instance counter below will update, when its fully loaded.</string>
+    <string name="TextLoadExampleData">1) The collected data gets loaded and the instance counter below will update, when its fully loaded.</string>
     <string name="TrainingText">2) Press the button below to start the training.</string>
     <string name="BtnStartTraining">Start Training</string>
     <string name="BtnStopTraining">Stop Training</string>
@@ -34,8 +34,19 @@
     <string name="UseNewTrainedModel">Use New Trained Model</string>
 
 
+    <!-- Create Confusion Matrix -->
+    <string name="instanceConfusionMatrix">The array below depicts how many instances you collected for each activity.</string>
+    <string name="CalculateConfusionMatrix">Press the button below to calculate the confusion matrix. The pre trained model will be used.</string>
+    <string name="BtnCalcConfusionMatrix">Calculate Confusion Matrix</string>
+    <string name="TextLoadLastConfusionMatrix">Or you can load the last calculated confusion matrix.</string>
+    <string name="BtnLoadLastConfMatrix">Load Last Confusion Matrix</string>
+    <string name="BtnLoadLastRecordedData">Load Last Recorded Data</string>
 
 
+    <!-- Show Confusion Matrix -->
+    <string name="ShowKNNMatrix"> Show kNN Confusion Matrix</string>
+    <string name="ShowGenericMatrix"> Show Generic Model Confusion Matrix</string>
+    <string name="ShowTLMatrix"> Show TL Model Confusion Matrix</string>
 
 
 
@@ -49,14 +60,9 @@
 
 
 
-    <string name="instanceConfusionMatrix">The array below depicts how many instances you collected for each activity.</string>
-    <string name="CalculateConfusionMatrix">3) Press the button below to show the confusion matrix. The pre trained model will be used.</string>
-    <string name="BtnCalcConfusionMatrix">Show Confusion Matrix</string>
-    <string name="BtnLoadLastConfMatrix">Load Last Confusion Matrix</string>
 
-    <string name="ShowKNNMatrix"> Show kNN Confusion Matrix</string>
-    <string name="ShowGenericMatrix"> Show Generic Model Confusion Matrix</string>
-    <string name="ShowTLMatrix"> Show TL Model Confusion Matrix</string>
+
+
 
 
 

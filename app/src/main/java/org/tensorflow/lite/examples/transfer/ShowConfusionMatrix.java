@@ -33,7 +33,7 @@ public class ShowConfusionMatrix extends AppCompatActivity {
     int[] confGeneric;
     int[] confTL;
 
-    int paddingHorizontal = 20;
+    int paddingHorizontal = 15;
     int paddingVertical = 5;
     int paddingGridLayout = 5;
     float textSize = 12;

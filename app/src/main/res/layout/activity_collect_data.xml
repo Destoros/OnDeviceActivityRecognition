@@ -86,13 +86,13 @@
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="bottom"
             android:text="@string/SaveExampleDataText" />
 
         <Button
-            android:id="@+id/collectingDataButton2"
+            android:id="@+id/saveDataButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/buttonBackground"
