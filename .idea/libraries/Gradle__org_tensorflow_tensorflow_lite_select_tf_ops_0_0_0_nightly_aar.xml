@@ -1,9 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: org.tensorflow:tensorflow-lite-select-tf-ops:0.0.0-nightly@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1b263fae383f2e35905e26ee825ea1ae/jetified-tensorflow-lite-select-tf-ops-0.0.0-nightly/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1b263fae383f2e35905e26ee825ea1ae/jetified-tensorflow-lite-select-tf-ops-0.0.0-nightly/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1b263fae383f2e35905e26ee825ea1ae/jetified-tensorflow-lite-select-tf-ops-0.0.0-nightly/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/872f46bc3dff59113922c3885daf3494/tensorflow-lite-select-tf-ops-0.0.0-nightly/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/872f46bc3dff59113922c3885daf3494/tensorflow-lite-select-tf-ops-0.0.0-nightly/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/872f46bc3dff59113922c3885daf3494/tensorflow-lite-select-tf-ops-0.0.0-nightly/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
