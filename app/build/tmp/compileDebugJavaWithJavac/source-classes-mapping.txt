@@ -1,11 +1,11 @@
-org/tensorflow/lite/examples/transfer/UsePreTrainedData.java
- org.tensorflow.lite.examples.transfer.UsePreTrainedData
+org/tensorflow/lite/examples/transfer/MyModels.java
+ org.tensorflow.lite.examples.transfer.MyModels
 org/tensorflow/lite/examples/transfer/ButtonCountdown.java
  org.tensorflow.lite.examples.transfer.ButtonCountdown
 org/tensorflow/lite/examples/transfer/models/TensorFlowLiteClassifier.java
  org.tensorflow.lite.examples.transfer.models.TensorFlowLiteClassifier
-org/tensorflow/lite/examples/transfer/CollectExampleData.java
- org.tensorflow.lite.examples.transfer.CollectExampleData
+org/tensorflow/lite/examples/transfer/DataGathering.java
+ org.tensorflow.lite.examples.transfer.DataGathering
 org/tensorflow/lite/examples/transfer/MainActivity.java
  org.tensorflow.lite.examples.transfer.MainActivity
 org/tensorflow/lite/examples/transfer/CreateConfusionMatrix.java
@@ -14,6 +14,8 @@ org/tensorflow/lite/examples/transfer/DataBindingTriggerClass.java
  org.tensorflow.lite.examples.transfer.DataBindingTriggerClass
 org/tensorflow/lite/examples/transfer/AccelerationValues.java
  org.tensorflow.lite.examples.transfer.AccelerationValues
+org/tensorflow/lite/examples/transfer/Prediction.java
+ org.tensorflow.lite.examples.transfer.Prediction
 org/tensorflow/lite/examples/transfer/TrainNewModel.java
  org.tensorflow.lite.examples.transfer.TrainNewModel
 org/tensorflow/lite/examples/transfer/ShowConfusionMatrix.java

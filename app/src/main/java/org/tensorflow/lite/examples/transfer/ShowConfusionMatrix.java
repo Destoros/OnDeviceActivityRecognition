@@ -9,22 +9,15 @@ import android.view.View;
 import android.widget.GridLayout;
 import android.widget.TextView;
 
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
+
 
 public class ShowConfusionMatrix extends AppCompatActivity {
 
-
-
-
     public static final String[] ALL_ACTIVITIES_NAMES = TransferLearningModelWrapper.listClasses.toArray(new String[0]);
-    public static final int N_ACTIVITIES = ALL_ACTIVITIES_NAMES.length;
+    public static final int N_ACTIVITIES = CONSTANTS.N_ACTIVITIES;
 
     ArrayList<TextView> ConfusionMatrixTextView = new ArrayList<>();
 
@@ -46,11 +39,11 @@ public class ShowConfusionMatrix extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_confusion_matrix);
 
+        //get the confusion matrices
         Intent intent = getIntent();
-
-        confKNN = intent.getIntArrayExtra(CreateConfusionMatrix.tokenKNN);
-        confGeneric = intent.getIntArrayExtra(CreateConfusionMatrix.tokenGeneric);
-        confTL = intent.getIntArrayExtra(CreateConfusionMatrix.tokenTL);
+        confKNN = intent.getIntArrayExtra(CONSTANTS.KNN);
+        confGeneric = intent.getIntArrayExtra(CONSTANTS.GENERIC);
+        confTL = intent.getIntArrayExtra(CONSTANTS.TL);
 
         //get screen size
         Point size = new Point();

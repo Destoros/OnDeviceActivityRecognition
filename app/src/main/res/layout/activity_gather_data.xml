@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="12dp"
+    tools:context=".DataGathering">
+
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/EnterActivityText"
+        android:textSize="18sp" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        app:cardBackgroundColor="@color/buttonBackground"
+        app:cardCornerRadius="4dp">
+
+        <Spinner
+            android:id="@+id/change_class_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:clickable="true"
+            android:popupBackground="@color/buttonBackground" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/StartCollectingData"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/collectingDataButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:backgroundTint="@color/buttonBackground"
+        android:minHeight="64dip"
+        android:onClick="collectData"
+        android:text="@string/BtnCollectData" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:text="@string/InstanceText"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/instancesTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="12dp"
+        android:layout_weight="0"
+        android:gravity="center"
+        android:text="@string/EmptyInstanceText"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/InfoForCollectingData" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:text="@string/SaveExampleDataText" />
+
+        <Button
+            android:id="@+id/saveDataButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/buttonBackground"
+            android:minHeight="64dip"
+            android:onClick="saveExampleData"
+            android:text="@string/SaveExampleDataBtn" />
+
+    </LinearLayout>
+
+</LinearLayout>

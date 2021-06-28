@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.text.TextPaint;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
 //from https://stackoverflow.com/questions/2888780/is-it-possible-to-write-vertically-in-a-textview-in-android
 

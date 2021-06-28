@@ -3,20 +3,10 @@ package org.tensorflow.lite.examples.transfer;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,26 +16,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
-import java.util.List;
-
 
 
 public class TrainNewModel extends AppCompatActivity {
 
-
-
     public static final String[] ALL_ACTIVITIES_NAMES = CONSTANTS.ALL_ACTIVITIES_NAMES;
-    public static final int N_ACTIVITIES = ALL_ACTIVITIES_NAMES.length;
-    String prefixFileName = CONSTANTS.PREFIX_TRAINING_FILE_NAME;
-
+    String prefixFileName = CONSTANTS.PREFIX_TRAINING_DATA; //load the training data
 
     boolean startTrainingButtonPressed;
     Button startTrainingButton;
 
     boolean someTrainingWasDone;
-
-
-
 
     TextView instancesTextView;
     TextView lossTextView;
@@ -117,6 +98,7 @@ public class TrainNewModel extends AppCompatActivity {
 
         } else {
             Toast.makeText(getApplicationContext(), "Error while loading the acceleration values. Training is not possible", Toast.LENGTH_LONG).show();
+            finish();
         }
 
 
@@ -181,7 +163,7 @@ public class TrainNewModel extends AppCompatActivity {
 
         if(accelerationValuesLoaded) {
 
-            //first check fi the instance counter has more than batchSIze entries for each activity
+            //first check if the instance counter has more than batchSIze entries for each activity
             int batchSize = tlModel.getTrainBatchSize();
             boolean enoughInstances = true;
 
@@ -200,9 +182,7 @@ public class TrainNewModel extends AppCompatActivity {
                     startTrainingButtonPressed = true;
                     startTrainingButton.setText(R.string.BtnStopTraining);
 
-                    tlModel.enableTraining((epoch, loss) -> runOnUiThread(() -> {
-                        lossTextView.setText(String.format(getResources().getString(R.string.Loss), loss));
-                    }));
+                    tlModel.enableTraining((epoch, loss) -> runOnUiThread(() -> lossTextView.setText(String.format(getResources().getString(R.string.Loss), loss))));
                 } else {
                     tlModel.disableTraining();
                     startTrainingButtonPressed = false;
@@ -231,16 +211,15 @@ public class TrainNewModel extends AppCompatActivity {
                 (dialog, which) -> {
                     //save TL model
                     File modelPath = getApplicationContext().getFilesDir();
-                    File modelFile = new File(modelPath, CONSTANTS.TL_MODEL_NAME);
+                    File modelFile = new File(modelPath, CONSTANTS.PREFIX_NEW_TRAINED_MODEL + "_" + CONSTANTS.TL_MODEL_NAME);
                     tlModel.saveModel(modelFile);
 
                     //also save the kNN model
-                    myKNN.saveFeatureMatrix(getFilesDir() + File.separator +  CONSTANTS.KNN_MODEL_NAME);
+                    myKNN.saveFeatureMatrix(getFilesDir() + File.separator + CONSTANTS.PREFIX_NEW_TRAINED_MODEL + "_" + CONSTANTS.KNN_MODEL_NAME);
 
                     // Do something in response to button
-                    Intent intent = new Intent(TrainNewModel.this, UsePreTrainedData.class);
-                    intent.putExtra(CONSTANTS.TL_TOKEN, CONSTANTS.TL_MODEL_NAME);
-                    intent.putExtra(CONSTANTS.KNN_TOKEN, CONSTANTS.KNN_MODEL_NAME);
+                    Intent intent = new Intent(TrainNewModel.this, Prediction.class);
+                    intent.putExtra(CONSTANTS.FROM_MAIN_ACTIVITY, CONSTANTS.PREFIX_NEW_TRAINED_MODEL); //technically this is not started from the main activity, but Im too lazy to make this correct
                     startActivity(intent);
                 });
 
@@ -281,11 +260,11 @@ public class TrainNewModel extends AppCompatActivity {
 
                     //save TL model
                     File modelPath = getApplicationContext().getFilesDir();
-                    File modelFile = new File(modelPath, CONSTANTS.TL_PRE_TRAINED_MODEL_NAME);
+                    File modelFile = new File(modelPath, CONSTANTS.PREFIX_PRE_TRAINED_MODEL + "_" + CONSTANTS.TL_MODEL_NAME);
                     tlModel.saveModel(modelFile);
 
                     //also save the kNN model
-                    myKNN.saveFeatureMatrix(getFilesDir() + File.separator + CONSTANTS.KNN_PRE_TRAINED_MODEL_NAME);
+                    myKNN.saveFeatureMatrix(getFilesDir() + File.separator + CONSTANTS.PREFIX_PRE_TRAINED_MODEL + "_" + CONSTANTS.KNN_MODEL_NAME);
 
                     Toast.makeText(getApplicationContext(), "New Pre Trained Model saved.", Toast.LENGTH_SHORT).show();
 

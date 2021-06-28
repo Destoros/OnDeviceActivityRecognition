@@ -3,21 +3,9 @@ manifest
 ADDED from C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\transfer_api\src\main\AndroidManifest.xml:1:1-2:58
 INJECTED from C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\transfer_api\src\main\AndroidManifest.xml:1:1-2:58
 INJECTED from C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\transfer_api\src\main\AndroidManifest.xml:1:1-2:58
-INJECTED from C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\transfer_api\src\main\AndroidManifest.xml:1:1-2:58
-INJECTED from C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\transfer_api\src\main\AndroidManifest.xml:1:1-2:58
-INJECTED from C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\transfer_api\src\main\AndroidManifest.xml:1:1-2:58
-INJECTED from C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\transfer_api\src\main\AndroidManifest.xml:1:1-2:58
 	package
 		ADDED from C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\transfer_api\src\main\AndroidManifest.xml:2:5-56
 		INJECTED from C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\transfer_api\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\transfer_api\src\main\AndroidManifest.xml
-	android:versionName
-		INJECTED from C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\transfer_api\src\main\AndroidManifest.xml
-		ADDED from C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\transfer_api\src\main\AndroidManifest.xml:1:1-2:58
-		INJECTED from C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\transfer_api\src\main\AndroidManifest.xml
-	android:versionCode
-		INJECTED from C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\transfer_api\src\main\AndroidManifest.xml
-		ADDED from C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\transfer_api\src\main\AndroidManifest.xml:1:1-2:58
 		INJECTED from C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\transfer_api\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\transfer_api\src\main\AndroidManifest.xml:1:11-69

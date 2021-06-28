@@ -1303,7 +1303,6 @@ id textSpacerNoTitle
 id textStart
 id textView
 id textView10
-id textView11
 id textView12
 id textView13
 id textView15
@@ -1330,7 +1329,6 @@ id top
 id topPanel
 id touch_outside
 id trainingButton
-id trainingButton2
 id transition_current_scene
 id transition_layout_save
 id transition_position
@@ -1401,8 +1399,8 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
-layout activity_collect_data
 layout activity_create_confusion_matrix
+layout activity_gather_data
 layout activity_main
 layout activity_show_confusion_matrix
 layout activity_train_new_model

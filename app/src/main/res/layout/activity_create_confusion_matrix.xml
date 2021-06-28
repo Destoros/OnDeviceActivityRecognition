@@ -44,22 +44,4 @@
         android:onClick="calculateConfusionMatrix"
         android:text="@string/BtnCalcConfusionMatrix" />
 
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:text="@string/TextLoadLastConfusionMatrix"
-        android:textSize="16sp" />
-
-    <Button
-        android:id="@+id/trainingButton2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:backgroundTint="@color/buttonBackground"
-        android:minHeight="64dip"
-        android:onClick="loadConfusionMatrix"
-        android:text="@string/BtnLoadLastConfMatrix" />
-
 </LinearLayout>

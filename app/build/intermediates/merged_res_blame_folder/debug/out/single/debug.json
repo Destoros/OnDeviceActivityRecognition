@@ -4,12 +4,12 @@
         "source": "C:\\Users\\Hannes\\Desktop\\Uni\\Master\\4. Semester\\Mobile Computing\\OnDeviceActivityRecogApp\\app\\src\\main\\res\\drawable\\ic_launcher.xml"
     },
     {
-        "merged": "C:\\Users\\Hannes\\Desktop\\Uni\\Master\\4. Semester\\Mobile Computing\\OnDeviceActivityRecogApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_collect_data.xml.flat",
-        "source": "C:\\Users\\Hannes\\Desktop\\Uni\\Master\\4. Semester\\Mobile Computing\\OnDeviceActivityRecogApp\\app\\src\\main\\res\\layout\\activity_collect_data.xml"
-    },
-    {
         "merged": "C:\\Users\\Hannes\\Desktop\\Uni\\Master\\4. Semester\\Mobile Computing\\OnDeviceActivityRecogApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_show_confusion_matrix.xml.flat",
         "source": "C:\\Users\\Hannes\\Desktop\\Uni\\Master\\4. Semester\\Mobile Computing\\OnDeviceActivityRecogApp\\app\\src\\main\\res\\layout\\activity_show_confusion_matrix.xml"
+    },
+    {
+        "merged": "C:\\Users\\Hannes\\Desktop\\Uni\\Master\\4. Semester\\Mobile Computing\\OnDeviceActivityRecogApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_gather_data.xml.flat",
+        "source": "C:\\Users\\Hannes\\Desktop\\Uni\\Master\\4. Semester\\Mobile Computing\\OnDeviceActivityRecogApp\\app\\src\\main\\res\\layout\\activity_gather_data.xml"
     },
     {
         "merged": "C:\\Users\\Hannes\\Desktop\\Uni\\Master\\4. Semester\\Mobile Computing\\OnDeviceActivityRecogApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_create_confusion_matrix.xml.flat",

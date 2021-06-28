@@ -35,7 +35,7 @@
 22        android:allowBackup="true"
 22-->C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\app\src\main\AndroidManifest.xml:16:9-35
 23        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-23-->[androidx.core:core:1.1.0] C:\Users\Hannes\.gradle\caches\transforms-2\files-2.1\ae31cc97a3f9383e0242537d69427d3a\core-1.1.0\AndroidManifest.xml:24:18-86
+23-->[androidx.core:core:1.1.0] C:\Users\Hannes\.gradle\caches\transforms-2\files-2.1\df087b5e2f442bf511b04dd5f84bb83e\core-1.1.0\AndroidManifest.xml:24:18-86
 24        android:configChanges="orientation"
 24-->C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\app\src\main\AndroidManifest.xml:17:9-44
 25        android:debuggable="true"
@@ -47,9 +47,9 @@
 29        android:testOnly="true"
 30        android:theme="@style/AppTheme" >
 30-->C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\app\src\main\AndroidManifest.xml:20:9-40
-31        <activity android:name="org.tensorflow.lite.examples.transfer.CollectExampleData" />
-31-->C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\app\src\main\AndroidManifest.xml:21:9-56
-31-->C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\app\src\main\AndroidManifest.xml:21:19-53
+31        <activity android:name="org.tensorflow.lite.examples.transfer.DataGathering" />
+31-->C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\app\src\main\AndroidManifest.xml:21:9-51
+31-->C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\app\src\main\AndroidManifest.xml:21:19-48
 32        <activity android:name="org.tensorflow.lite.examples.transfer.ShowConfusionMatrix" />
 32-->C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\app\src\main\AndroidManifest.xml:22:9-57
 32-->C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\app\src\main\AndroidManifest.xml:22:19-54
@@ -66,8 +66,8 @@
 37-->C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\app\src\main\AndroidManifest.xml:27:13-49
 38        <activity
 38-->C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\app\src\main\AndroidManifest.xml:28:9-31:52
-39            android:name="org.tensorflow.lite.examples.transfer.UsePreTrainedData"
-39-->C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\app\src\main\AndroidManifest.xml:29:13-46
+39            android:name="org.tensorflow.lite.examples.transfer.Prediction"
+39-->C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\app\src\main\AndroidManifest.xml:29:13-39
 40            android:configChanges="orientation"
 40-->C:\Users\Hannes\Desktop\Uni\Master\4. Semester\Mobile Computing\OnDeviceActivityRecogApp\app\src\main\AndroidManifest.xml:30:13-48
 41            android:screenOrientation="portrait" />
@@ -93,15 +93,15 @@
 51        </activity>
 52
 53        <provider
-53-->[androidx.lifecycle:lifecycle-process:2.1.0-rc01] C:\Users\Hannes\.gradle\caches\transforms-2\files-2.1\b9b94876ef8817758a792ca7d7764c63\jetified-lifecycle-process-2.1.0-rc01\AndroidManifest.xml:23:9-27:43
+53-->[androidx.lifecycle:lifecycle-process:2.1.0-rc01] C:\Users\Hannes\.gradle\caches\transforms-2\files-2.1\25c6cc111274020d1dfd999acf493bb3\jetified-lifecycle-process-2.1.0-rc01\AndroidManifest.xml:23:9-27:43
 54            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
-54-->[androidx.lifecycle:lifecycle-process:2.1.0-rc01] C:\Users\Hannes\.gradle\caches\transforms-2\files-2.1\b9b94876ef8817758a792ca7d7764c63\jetified-lifecycle-process-2.1.0-rc01\AndroidManifest.xml:24:13-79
+54-->[androidx.lifecycle:lifecycle-process:2.1.0-rc01] C:\Users\Hannes\.gradle\caches\transforms-2\files-2.1\25c6cc111274020d1dfd999acf493bb3\jetified-lifecycle-process-2.1.0-rc01\AndroidManifest.xml:24:13-79
 55            android:authorities="org.tensorflow.lite.examples.transfer.lifecycle-process"
-55-->[androidx.lifecycle:lifecycle-process:2.1.0-rc01] C:\Users\Hannes\.gradle\caches\transforms-2\files-2.1\b9b94876ef8817758a792ca7d7764c63\jetified-lifecycle-process-2.1.0-rc01\AndroidManifest.xml:25:13-69
+55-->[androidx.lifecycle:lifecycle-process:2.1.0-rc01] C:\Users\Hannes\.gradle\caches\transforms-2\files-2.1\25c6cc111274020d1dfd999acf493bb3\jetified-lifecycle-process-2.1.0-rc01\AndroidManifest.xml:25:13-69
 56            android:exported="false"
-56-->[androidx.lifecycle:lifecycle-process:2.1.0-rc01] C:\Users\Hannes\.gradle\caches\transforms-2\files-2.1\b9b94876ef8817758a792ca7d7764c63\jetified-lifecycle-process-2.1.0-rc01\AndroidManifest.xml:26:13-37
+56-->[androidx.lifecycle:lifecycle-process:2.1.0-rc01] C:\Users\Hannes\.gradle\caches\transforms-2\files-2.1\25c6cc111274020d1dfd999acf493bb3\jetified-lifecycle-process-2.1.0-rc01\AndroidManifest.xml:26:13-37
 57            android:multiprocess="true" />
-57-->[androidx.lifecycle:lifecycle-process:2.1.0-rc01] C:\Users\Hannes\.gradle\caches\transforms-2\files-2.1\b9b94876ef8817758a792ca7d7764c63\jetified-lifecycle-process-2.1.0-rc01\AndroidManifest.xml:27:13-40
+57-->[androidx.lifecycle:lifecycle-process:2.1.0-rc01] C:\Users\Hannes\.gradle\caches\transforms-2\files-2.1\25c6cc111274020d1dfd999acf493bb3\jetified-lifecycle-process-2.1.0-rc01\AndroidManifest.xml:27:13-40
 58    </application>
 59
 60</manifest>

@@ -4,7 +4,17 @@
             "outputFile": "C:\\Users\\Hannes\\Desktop\\Uni\\Master\\4. Semester\\Mobile Computing\\OnDeviceActivityRecogApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-land\\values-land.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Hannes\\.gradle\\caches\\transforms-2\\files-2.1\\3687f3b99e8403f2ac71fc13522840ff\\material-1.0.0\\res\\values-land\\values-land.xml",
+                    "source": "C:\\Users\\Hannes\\.gradle\\caches\\transforms-2\\files-2.1\\21e1699138e4e4da2df2898493686baa\\appcompat-1.1.0\\res\\values-land\\values-land.xml",
+                    "from": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,125,196",
+                        "endColumns": "69,70,67",
+                        "endOffsets": "120,191,259"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Hannes\\.gradle\\caches\\transforms-2\\files-2.1\\86d9f2e65dce60c678f89943df7c8071\\material-1.0.0\\res\\values-land\\values-land.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -20,16 +30,6 @@
                         "endLines": "8",
                         "endColumns": "10",
                         "endOffsets": "431"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\Hannes\\.gradle\\caches\\transforms-2\\files-2.1\\9f7e7a548ad00e2e3c3268a409525997\\appcompat-1.1.0\\res\\values-land\\values-land.xml",
-                    "from": {
-                        "startLines": "2,3,4",
-                        "startColumns": "4,4,4",
-                        "startOffsets": "55,125,196",
-                        "endColumns": "69,70,67",
-                        "endOffsets": "120,191,259"
                     }
                 }
             ]

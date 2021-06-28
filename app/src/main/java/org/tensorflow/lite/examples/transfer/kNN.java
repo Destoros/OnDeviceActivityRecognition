@@ -1,18 +1,16 @@
 package org.tensorflow.lite.examples.transfer;
 
 
-
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/** my own written kNN class */
 public class kNN {
 
 
@@ -31,14 +29,13 @@ public class kNN {
             this.nClasses = activityNames.size();
             this.activityNames = activityNames;
         }
-
         this.featureMatrix = new ArrayList<>();
         this.labelsFeatureMatrix = new ArrayList<>();
 
     }
 
 
-    public float[] predictClasses(ArrayList<Float> x_accel, ArrayList<Float> y_accel, ArrayList<Float> z_accel, int k) {
+    public ArrayList<Float> predictClasses(ArrayList<Float> x_accel, ArrayList<Float> y_accel, ArrayList<Float> z_accel, int k) {
 
 
         //k is the amount of neighbours to compare
@@ -47,8 +44,8 @@ public class kNN {
         }
 
         float[][] distances = new float[this.featureMatrix.size()][2]; //create a new array which contains the distance to each feature in the feature matrix and the corresponding activity
-        float[] occurrences = new float[this.nClasses]; //counts how many times each class appeared in the k-th nearest neighbours; gets initialized to 0
-
+        int[] occurrences = new int[this.nClasses]; //counts how many times each class appeared in the k-th nearest neighbours; gets initialized to 0
+        ArrayList<Float> probabilities = new ArrayList<>();
 
         //first convert it to an array
         float[] x = toFloatArray(x_accel);
@@ -71,23 +68,24 @@ public class kNN {
             occurrences[(int) distances[i][1]] += 1;
         }
 
+        //convert to probability
         for(int i = 0; i < this.nClasses; i++) {
-            occurrences[i] /= k; //convert to probability
+            probabilities.add( ((float) occurrences[i])/k);
         }
 
 
-        return occurrences;
+        return probabilities;
     }
 
 
-    public String getActivityNameFromIndex(int index) throws IndexOutOfBoundsException{
-
-        if(index > this.activityNames.size()) {
-            throw new IndexOutOfBoundsException();
-        }
-
-        return this.activityNames.get(index);
-    }
+//    public String getActivityNameFromIndex(int index) throws IndexOutOfBoundsException{
+//
+//        if(index > this.activityNames.size()) {
+//            throw new IndexOutOfBoundsException();
+//        }
+//
+//        return this.activityNames.get(index);
+//    }
 
     public int getAmountNeighbours() {
         return this.featureMatrix.size();
@@ -150,21 +148,19 @@ public class kNN {
                 fOutStream3.writeUTF(activityNames.get(i));
             }
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
 
-    public void loadFeatureMatrix(String fileName) {
+    public void loadFeatureMatrix(String fileName) throws IOException {
         //Reading from a file
         DataInputStream fInpStream;
         DataInputStream fInpStream2;
         DataInputStream fInpStream3;
 
-        float[] featureLine = new float[N_FEATURES];
+        float[] featureLine;
 
 
         //load feature matrix
@@ -186,7 +182,6 @@ public class kNN {
                     System.out.print(featureLine[i]+" ");
                 }
                 this.featureMatrix.add(featureLine);
-                featureLine = null;
                 System.out.println();
             }
 
@@ -204,10 +199,9 @@ public class kNN {
             this.nClasses = counter;
 
 
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            throw new IOException("File not found");
         }
 
     }
