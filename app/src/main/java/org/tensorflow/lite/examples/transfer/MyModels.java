@@ -2,6 +2,7 @@ package org.tensorflow.lite.examples.transfer;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.widget.Toast;
 
 import org.tensorflow.lite.examples.transfer.models.TensorFlowLiteClassifier;
 
@@ -15,16 +16,16 @@ import java.util.List;
 
 import org.tensorflow.lite.examples.transfer.api.TransferLearningModel.Prediction;
 
-/** This class loads all three models and provides an easy interface get the predictions*/
+/** This class loads all three models and provides an easy interface to get the predictions*/
 public class MyModels {
 
     kNN kNNModel = new kNN(null); //my own written kNN class
     TensorFlowLiteClassifier genericModel = new TensorFlowLiteClassifier();
     TransferLearningModelWrapper tlModel; //transfer learning model class which uses the .tflite files
 
-    String prefixFileName;
+    String prefixFileName; //use pre trained model or new trained model
 
-    int k = CONSTANTS.K;
+    int k = CONSTANTS.K; //k-nearest-neighbors
     boolean kNNModelLoaded = false;
     boolean genericModelLoaded = false;
     boolean tlModelLoaded = false;
@@ -32,7 +33,7 @@ public class MyModels {
 
     public MyModels(String prefixFileName) {
         this.prefixFileName = prefixFileName;
-    }
+    } //constructor
 
     void loadModels(File modelPath, AssetManager assetManager, Context context) throws IOException {
 
@@ -44,7 +45,11 @@ public class MyModels {
 
         try {
             kNNModel.loadFeatureMatrix(modelFile.getPath());
-            if(kNNModel.getAmountNeighbours() < CONSTANTS.K) k = kNNModel.getAmountNeighbours()/2 - 1 + (kNNModel.getAmountNeighbours()%2); //make sure this number not is even
+            //check if there are entries in the feature matrix than requested neighbors; if not adjust k
+            if(kNNModel.getAmountNeighbours() < CONSTANTS.K)  {
+                k = kNNModel.getAmountNeighbours()/2 - 1 + (kNNModel.getAmountNeighbours()%2); //make sure this number not is even
+                Toast.makeText(context, "there are not enough neighbors to compare to for kNN. k was adjusted", Toast.LENGTH_SHORT).show();
+            }
             kNNModelLoaded = true;
         } catch (IOException e) {
             throw new IOException("Error while loading kNN model");

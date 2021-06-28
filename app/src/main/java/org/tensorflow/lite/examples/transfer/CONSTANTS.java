@@ -8,7 +8,7 @@ public class CONSTANTS {
     // just delete STEP_DISTANCE samples and and wait until the accelerometer sensor delivers STEP_DISTANCE new Samples; then predict the activity again.
 
     public static final String[] ALL_ACTIVITIES_NAMES = {"Walking", "Upstairs", "Downstairs", "Sitting",
-            "Standing", "Laying", "Running"}; //this has to be synchronized with the string-array in strings.xml
+            "Standing", "Laying", "Running"}; //the amount of entries in this String[] has to be the same number of classes the head model was created with
     public static final int N_ACTIVITIES = ALL_ACTIVITIES_NAMES.length;
 
 

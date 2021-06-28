@@ -4,7 +4,7 @@
 
     <!-- Main Activity -->
     <string name="logo_title">On-Device Activity Recognizer</string>
-    <string name="title_screen_option_text"> In Collect Example Data you can collect raw acceleration data which will be saved on the phone and can be used to train a model. You can either train a new model or use an already trained model. If you use this app for the first time there is no pre trained model and the kNN and TL model will behave randomly.</string>
+    <string name="title_screen_option_text"> In Collect Example Data you can collect raw acceleration data which will be saved on the phone and can be used to train a model. You can either train a new model or use an already trained model. If you use this app for the first time there is no pre trained model and the kNN and TL model can not be loaded.</string>
     <string name="BtnPreTrainedModel">Use a pre trained model</string>
     <string name="BtnTrainNewModel">Train a new model</string>
     <string name="title_screen_option_text_2">You can also create a confusion matrix for the pre trained model or load the last model which was trained in "Train a New Model" and did not overwrite the pre trained model.</string>
@@ -39,7 +39,6 @@
     <string name="CalculateConfusionMatrix">Press the button below to calculate the confusion matrix. The pre trained model will be used.</string>
     <string name="BtnCalcConfusionMatrix">Calculate Confusion Matrix</string>
     <string name="TextLoadLastConfusionMatrix">Or you can load the last calculated confusion matrix.</string>
-    <string name="BtnLoadLastConfMatrix">Load Last Confusion Matrix</string>
     <string name="BtnLoadLastRecordedData">Load Last Recorded Data</string>
 
 
@@ -50,35 +49,9 @@
 
 
 
-
-
-    <string name="MissingFeatureMatrix">Feature Matrix could not be loaded</string>
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <!-- Prediction Activity -->
     <string name="BtnSaveNewTrainedModelPreTrainedModel">Save as Pre Trained Model</string>
     <string name="explanationGenericModelRunning">The generic model has no activity running, but it has in between activities like STAND_TO_SIT or SIT_TO_LIE. The sum of all those in between activities is summed up and displayed as the running activity.</string>
 
-
-    <!-- IMPORTANT: THIS LIST HAS TO FOLLOW THE LIST IN TransferLearningModelWrapper.java, OTHERWISE THE PROGRAM WONT WORK PROPERLY-->
-    <string-array name="class_array">
-        <item>Walking</item>
-        <item>Upstairs</item>
-        <item>Downstairs</item>
-        <item>Sitting</item>
-        <item>Standing</item>
-        <item>Laying</item>
-        <item>Running</item>
-    </string-array>
 
 </resources>

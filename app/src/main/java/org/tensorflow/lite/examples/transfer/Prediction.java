@@ -75,7 +75,7 @@ public class Prediction extends AppCompatActivity implements SensorEventListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_use_pre_trained_data);
+        setContentView(R.layout.activity_prediction);
 
         Intent intent = getIntent();
         modelPrefix = intent.getStringExtra(CONSTANTS.FROM_MAIN_ACTIVITY); //gets which model should be used (pre trained or new trained model)
@@ -91,6 +91,7 @@ public class Prediction extends AppCompatActivity implements SensorEventListener
             myModels.loadModels(getFilesDir(), getAssets(), this);
             modelsLoaded = true;
             Toast.makeText(getApplicationContext(), "All models successfully loaded", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Recording new acceleration measurements...", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
             Toast.makeText(getApplicationContext(), "Prediction activity can not be used", Toast.LENGTH_SHORT).show();

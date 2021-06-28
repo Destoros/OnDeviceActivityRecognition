@@ -37,7 +37,6 @@ animator mtrl_fab_hide_motion_spec
 animator mtrl_fab_show_motion_spec
 animator mtrl_fab_transformation_sheet_collapse_spec
 animator mtrl_fab_transformation_sheet_expand_spec
-array class_array
 attr actionBarDivider
 attr actionBarItemBackground
 attr actionBarPopupTheme
@@ -1401,9 +1400,9 @@ layout abc_tooltip
 layout activity_create_confusion_matrix
 layout activity_gather_data
 layout activity_main
+layout activity_prediction
 layout activity_show_confusion_matrix
 layout activity_train_new_model
-layout activity_use_pre_trained_data
 layout custom_dialog
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog
@@ -1438,7 +1437,6 @@ string BtnCollectData
 string BtnCollectExampleData
 string BtnCreateConfusionMatrix
 string BtnLastTrainedModel
-string BtnLoadLastConfMatrix
 string BtnLoadLastRecordedData
 string BtnPreTrainedModel
 string BtnSaveNewTrainedModelPreTrainedModel
@@ -1452,7 +1450,6 @@ string EnterActivityText
 string InfoForCollectingData
 string InstanceText
 string Loss
-string MissingFeatureMatrix
 string OR
 string SaveAsPreTrainedModel
 string SaveExampleDataBtn
