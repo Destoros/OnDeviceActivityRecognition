@@ -11,7 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/* This class was created to handle the incoming acceleration measurements which will be used to train a model */
+/* This class was created to handle the incoming acceleration measurements which will be used to train a model*/
 public class AccelerationValues {
 
     //these variables will store the raw measurements

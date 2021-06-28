@@ -1,5 +1,6 @@
 # New head configuration
-num_classes = 7
+//only changed num_classes and hidden units
+num_classes = 7 
 learning_rate = 0.001
 batch_size = 5
 l2_rate = 0.0001

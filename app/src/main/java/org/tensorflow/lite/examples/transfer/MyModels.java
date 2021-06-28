@@ -151,6 +151,9 @@ public class MyModels {
 
             for(int i = 0; i < maxValues.length; i++) {
                 maxValues[i] = Math.max(Math.abs(maxValues[i]), Math.abs(minValues[i]));
+                //I think it is quite strange ot normalize the using only the current frame and normalizing at all
+                //This way the orientation of the phone can not be considered anymore, since the values will still span from -1 to 1
+                //no matter the orientation.
             }
 
 
