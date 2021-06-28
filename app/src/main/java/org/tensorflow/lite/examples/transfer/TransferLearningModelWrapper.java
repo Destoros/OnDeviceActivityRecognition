@@ -50,8 +50,7 @@ public class TransferLearningModelWrapper implements Closeable {
   private volatile LossConsumer lossConsumer;
 
   //CHANGE LIST HERE
-  public static List<String> listClasses = Arrays.asList("Walking", "Upstairs", "Downstairs", "Sitting",
-          "Standing", "Laying", "Running"); //this list has to follow the same as string-array in strings.xml!
+  public static List<String> listClasses = Arrays.asList(CONSTANTS.ALL_ACTIVITIES_NAMES); //this list has to follow the same as string-array in strings.xml!
 
     //maybe R.array.class_array works
   TransferLearningModelWrapper(Context context) {
@@ -119,8 +118,6 @@ public class TransferLearningModelWrapper implements Closeable {
       FileOutputStream out = new FileOutputStream(file);
       GatheringByteChannel gather = out.getChannel();
       model.saveParameters(gather);
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -131,8 +128,6 @@ public class TransferLearningModelWrapper implements Closeable {
       FileInputStream inp = new FileInputStream(file);
       ScatteringByteChannel scatter = inp.getChannel();
       model.loadParameters(scatter);
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
     } catch (IOException e) {
       e.printStackTrace();
     }

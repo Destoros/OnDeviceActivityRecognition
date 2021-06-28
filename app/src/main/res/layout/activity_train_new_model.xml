@@ -52,7 +52,8 @@
         android:backgroundTint="@color/buttonBackground"
         android:minHeight="64dip"
         android:onClick="startTraining"
-        android:text="@string/BtnStartTraining" />
+        android:text="@string/BtnStartTraining"
+        android:textColor="@color/text_colour" />
 
     <TextView
         android:id="@+id/lossTextView"
@@ -79,6 +80,7 @@
             android:minHeight="64dip"
             android:onClick="saveAsPreTrainedModel"
             android:text="@string/SaveAsPreTrainedModel"
+            android:textColor="@color/text_colour"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -99,6 +101,7 @@
             android:minHeight="64dip"
             android:onClick="useNewTrainedModel"
             android:text="@string/UseNewTrainedModel"
+            android:textColor="@color/text_colour"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

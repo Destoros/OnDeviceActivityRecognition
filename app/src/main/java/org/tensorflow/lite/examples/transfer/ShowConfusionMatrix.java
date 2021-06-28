@@ -16,7 +16,7 @@ import java.util.Locale;
 
 public class ShowConfusionMatrix extends AppCompatActivity {
 
-    public static final String[] ALL_ACTIVITIES_NAMES = TransferLearningModelWrapper.listClasses.toArray(new String[0]);
+    public static final String[] ALL_ACTIVITIES_NAMES = CONSTANTS.ALL_ACTIVITIES_NAMES;
     public static final int N_ACTIVITIES = CONSTANTS.N_ACTIVITIES;
 
     ArrayList<TextView> ConfusionMatrixTextView = new ArrayList<>();
@@ -50,7 +50,7 @@ public class ShowConfusionMatrix extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getSize(size);
         int screenWidth = size.x;
 
-        textSize = screenWidth/ ( (float) N_ACTIVITIES*(N_ACTIVITIES+2));
+        textSize = screenWidth/ ( (float) N_ACTIVITIES*(N_ACTIVITIES*1.5f));
 
 //        GridLayout gridLayout = new GridLayout(this);
         gridLayout = findViewById(R.id.MyGridLayout);

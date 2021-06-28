@@ -29,6 +29,7 @@
             android:id="@+id/change_class_spinner"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:backgroundTint="@color/text_colour"
             android:clickable="true"
             android:popupBackground="@color/buttonBackground" />
     </androidx.cardview.widget.CardView>
@@ -51,7 +52,8 @@
         android:backgroundTint="@color/buttonBackground"
         android:minHeight="64dip"
         android:onClick="collectData"
-        android:text="@string/BtnCollectData" />
+        android:text="@string/BtnCollectData"
+        android:textColor="@color/text_colour" />
 
     <TextView
         android:id="@+id/textView19"
@@ -98,7 +100,8 @@
             android:backgroundTint="@color/buttonBackground"
             android:minHeight="64dip"
             android:onClick="saveExampleData"
-            android:text="@string/SaveExampleDataBtn" />
+            android:text="@string/SaveExampleDataBtn"
+            android:textColor="@color/text_colour" />
 
     </LinearLayout>
 

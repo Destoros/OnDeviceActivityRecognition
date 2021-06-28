@@ -107,6 +107,9 @@ public class TrainNewModel extends AppCompatActivity {
 
     protected void onPause() {
         super.onPause();
+        if(startTrainingButtonPressed) {
+            startTraining(null); //stop training
+        }
     }
 
     protected void onResume() {
@@ -114,6 +117,9 @@ public class TrainNewModel extends AppCompatActivity {
     }
 
     protected void onDestroy() {
+        if(startTrainingButtonPressed) {
+            startTraining(null); //stop training
+        }
         tlModel.close();
         tlModel = null;
         myKNN = null;
@@ -123,6 +129,7 @@ public class TrainNewModel extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
 
         if(someTrainingWasDone) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(

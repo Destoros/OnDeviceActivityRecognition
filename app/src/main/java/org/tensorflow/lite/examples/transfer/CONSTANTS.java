@@ -7,8 +7,8 @@ public class CONSTANTS {
     public static final int STEP_DISTANCE = 10; //fill the accelerometer arrays with the initial amount of samples of 200; after that don't delete all the old values,
     // just delete STEP_DISTANCE samples and and wait until the accelerometer sensor delivers STEP_DISTANCE new Samples; then predict the activity again.
 
-
-    public static final String[] ALL_ACTIVITIES_NAMES = TransferLearningModelWrapper.listClasses.toArray(new String[0]);
+    public static final String[] ALL_ACTIVITIES_NAMES = {"Walking", "Upstairs", "Downstairs", "Sitting",
+            "Standing", "Laying", "Running"}; //this has to be synchronized with the string-array in strings.xml
     public static final int N_ACTIVITIES = ALL_ACTIVITIES_NAMES.length;
 
 

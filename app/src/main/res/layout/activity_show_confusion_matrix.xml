@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -23,7 +22,8 @@
         android:backgroundTint="@color/buttonBackground"
         android:minHeight="54dip"
         android:onClick="showKNNConfusionMatrix"
-        android:text="@string/ShowKNNMatrix" />
+        android:text="@string/ShowKNNMatrix"
+        android:textColor="@color/text_colour" />
 
     <Button
         android:id="@+id/button7"
@@ -33,7 +33,8 @@
         android:backgroundTint="@color/buttonBackground"
         android:minHeight="54dip"
         android:onClick="showGenericConfusionMatrix"
-        android:text="@string/ShowGenericMatrix" />
+        android:text="@string/ShowGenericMatrix"
+        android:textColor="@color/text_colour" />
 
     <Button
         android:id="@+id/button5"
@@ -43,7 +44,8 @@
         android:backgroundTint="@color/buttonBackground"
         android:minHeight="54dip"
         android:onClick="showTLConfusionMatrix"
-        android:text="@string/ShowTLMatrix" />
+        android:text="@string/ShowTLMatrix"
+        android:textColor="@color/text_colour" />
 
 
 </LinearLayout>

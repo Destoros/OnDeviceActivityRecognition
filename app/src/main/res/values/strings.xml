@@ -67,7 +67,7 @@
 
 
     <string name="BtnSaveNewTrainedModelPreTrainedModel">Save as Pre Trained Model</string>
-    <string name="explanationGenericModelRunning">The generic model has no activity running, but it has in between activities like STAND_TO_SIT or SIT_TO_LIE. The sum of all those in between activities is summed and displayed as the running activity.</string>
+    <string name="explanationGenericModelRunning">The generic model has no activity running, but it has in between activities like STAND_TO_SIT or SIT_TO_LIE. The sum of all those in between activities is summed up and displayed as the running activity.</string>
 
 
     <!-- IMPORTANT: THIS LIST HAS TO FOLLOW THE LIST IN TransferLearningModelWrapper.java, OTHERWISE THE PROGRAM WONT WORK PROPERLY-->

@@ -6,11 +6,33 @@
                 {
                     "source": "C:\\Users\\Hannes\\.gradle\\caches\\transforms-2\\files-2.1\\21e1699138e4e4da2df2898493686baa\\appcompat-1.1.0\\res\\values-night-v8\\values-night-v8.xml",
                     "from": {
-                        "startLines": "2,3,4,5,6,7,8,9",
+                        "startLines": "-1,-1,-1,-1,-1,-1,-1,-1",
+                        "startColumns": "-1,-1,-1,-1,-1,-1,-1,-1",
+                        "startOffsets": "-1,-1,-1,-1,-1,-1,-1,-1"
+                    },
+                    "to": {
+                        "startLines": "6,7,8,9,10,11,12,13",
                         "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,125,209,293,389,491,593,687",
+                        "startOffsets": "252,322,406,490,586,688,790,884",
                         "endColumns": "69,83,83,95,101,101,93,88",
-                        "endOffsets": "120,204,288,384,486,588,682,771"
+                        "endOffsets": "317,401,485,581,683,785,879,968"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Hannes\\Desktop\\Uni\\Master\\4. Semester\\Mobile Computing\\OnDeviceActivityRecogApp\\app\\src\\main\\res\\values-night\\colors.xml",
+                    "from": {
+                        "startLines": "-1,3,-1,5",
+                        "startColumns": "-1,4,-1,4",
+                        "startOffsets": "-1,106,-1,206",
+                        "endColumns": "-1,47,-1,45",
+                        "endOffsets": "-1,149,-1,247"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,106,154,206",
+                        "endColumns": "50,47,51,45",
+                        "endOffsets": "101,149,201,247"
                     }
                 }
             ]

@@ -33,7 +33,7 @@ public class Prediction extends AppCompatActivity implements SensorEventListener
     public static final int PREDICT_AFTER_N_NEW_SAMPLES = CONSTANTS.STEP_DISTANCE;
 
     //to change the activities one has to change the string-array in the strings.xml file and the list in the TransferLearningModelWrapper.java
-    public static final String[] ALL_ACTIVITIES_NAMES = TransferLearningModelWrapper.listClasses.toArray(new String[0]);
+    public static final String[] ALL_ACTIVITIES_NAMES = CONSTANTS.ALL_ACTIVITIES_NAMES;
 
 
 

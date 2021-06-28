@@ -42,6 +42,7 @@
         android:backgroundTint="@color/buttonBackground"
         android:minHeight="64dip"
         android:onClick="calculateConfusionMatrix"
-        android:text="@string/BtnCalcConfusionMatrix" />
+        android:text="@string/BtnCalcConfusionMatrix"
+        android:textColor="@color/text_colour" />
 
 </LinearLayout>

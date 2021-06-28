@@ -76,9 +76,9 @@ public class DataGathering extends AppCompatActivity implements SensorEventListe
         classSpinner = findViewById(R.id.change_class_spinner);
         classSpinner.setOnItemSelectedListener(this);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.class_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.class_array, R.layout.spinner_item);
         // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(R.layout.spinner_item_dropdown);
         // Apply the adapter to the spinner
         classSpinner.setAdapter(adapter);
         //select the first activity in the spinner

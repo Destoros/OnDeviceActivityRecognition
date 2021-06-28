@@ -37,7 +37,8 @@
             android:backgroundTint="@color/buttonBackground"
             android:minHeight="54dip"
             android:onClick="saveAsPreTrainedDataBtn"
-            android:text="@string/BtnSaveNewTrainedModelPreTrainedModel" />
+            android:text="@string/BtnSaveNewTrainedModelPreTrainedModel"
+            android:textColor="@color/text_colour" />
 
     </LinearLayout>
 
