@@ -1,0 +1,7 @@
+save all the files in the folder (except this one) onto the internal storage. 
+These files contain raw acceleartion data and trained models (kNN and TL).
+If you dont copy these you need collect your own data and train a new model.
+
+folder path:
+Android Studio -> Device File Explorer:
+data/data/org.tensorflow.lite.examples.transfer/files/
