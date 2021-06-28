@@ -142,6 +142,11 @@ public class MyModels {
 
             //normalize the values
             float[] maxValues = {Collections.max(x_accel), Collections.max(y_accel), Collections.max(z_accel)};
+            float[] minValues = {Collections.min(x_accel), Collections.min(y_accel), Collections.min(z_accel)};
+
+            for(int i = 0; i < maxValues.length; i++) {
+                maxValues[i] = Math.max(Math.abs(maxValues[i]), Math.abs(minValues[i]));
+            }
 
 
             int i = 0;
@@ -151,6 +156,7 @@ public class MyModels {
                 inputSignal.add(z_accel.get(i) / maxValues[2]);
                 i++;
             }
+
 
 
             float[] input = toFloatArray(inputSignal);

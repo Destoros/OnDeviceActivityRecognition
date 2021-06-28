@@ -1,0 +1,10 @@
+Changed:
+df_train['x-axis'] = df_train['x-axis'] / np.absolute(df_train['x-axis']).max()
+df_train['y-axis'] = df_train['y-axis'] / np.absolute(df_train['y-axis']).max()
+df_train['z-axis'] = df_train['z-axis'] / np.absolute(df_train['z-axis']).max()
+
+
+STEP_DISTANCE = 10
+
+
+BATCH_SIZE = 300
